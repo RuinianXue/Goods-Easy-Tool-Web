@@ -1,0 +1,59 @@
+﻿@page "/users/create"
+@using Microsoft.EntityFrameworkCore
+@using GoodsWebApp.Models
+@inject IDbContextFactory<GoodsWebApp.Data.GoodsWebAppContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Create</PageTitle>
+
+<h1>Create</h1>
+
+<h2>Users</h2>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <EditForm method="post" Model="Users" OnValidSubmit="AddUsers" FormName="create" Enhance>
+            <DataAnnotationsValidator />
+            <ValidationSummary class="text-danger" />
+            <div class="mb-3">
+                <label for="cn" class="form-label">CN:</label> 
+                <InputText id="cn" @bind-Value="Users.CN" class="form-control" /> 
+                <ValidationMessage For="() => Users.CN" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="password" class="form-label">Password:</label> 
+                <InputText id="password" @bind-Value="Users.Password" class="form-control" /> 
+                <ValidationMessage For="() => Users.Password" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="qq" class="form-label">QQ:</label> 
+                <InputText id="qq" @bind-Value="Users.QQ" class="form-control" /> 
+                <ValidationMessage For="() => Users.QQ" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="authority" class="form-label">Authority:</label> 
+                <InputNumber id="authority" @bind-Value="Users.Authority" class="form-control" /> 
+                <ValidationMessage For="() => Users.Authority" class="text-danger" /> 
+            </div>        
+            <button type="submit" class="btn btn-primary">Create</button>
+        </EditForm>
+    </div>
+</div>
+
+<div>
+    <a href="/users">Back to List</a>
+</div>
+
+@code {
+    [SupplyParameterFromForm]
+    private Users Users { get; set; } = new();
+
+    // To protect from overposting attacks, see https://learn.microsoft.com/aspnet/core/blazor/forms/#mitigate-overposting-attacks.
+    private async Task AddUsers()
+    {
+        using var context = DbFactory.CreateDbContext();
+        context.Users.Add(Users);
+        await context.SaveChangesAsync();
+        NavigationManager.NavigateTo("/users");
+    }
+}

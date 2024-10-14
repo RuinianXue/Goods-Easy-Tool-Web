@@ -1,0 +1,277 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\Github\\Goods-Easy-Tool-Web\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{B031F0BB-EB04-4B6A-99E7-2CB7430A6017}|GoodsWebApp.csproj|d:\\github\\goods-easy-tool-web\\data\\goodswebappcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B031F0BB-EB04-4B6A-99E7-2CB7430A6017}|GoodsWebApp.csproj|solutionrelative:data\\goodswebappcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B031F0BB-EB04-4B6A-99E7-2CB7430A6017}|GoodsWebApp.csproj|d:\\github\\goods-easy-tool-web\\goodsbatch.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B031F0BB-EB04-4B6A-99E7-2CB7430A6017}|GoodsWebApp.csproj|solutionrelative:goodsbatch.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B031F0BB-EB04-4B6A-99E7-2CB7430A6017}|GoodsWebApp.csproj|d:\\github\\goods-easy-tool-web\\goods.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B031F0BB-EB04-4B6A-99E7-2CB7430A6017}|GoodsWebApp.csproj|solutionrelative:goods.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B031F0BB-EB04-4B6A-99E7-2CB7430A6017}|GoodsWebApp.csproj|d:\\github\\goods-easy-tool-web\\goodswebapp.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{B031F0BB-EB04-4B6A-99E7-2CB7430A6017}|GoodsWebApp.csproj|solutionrelative:goodswebapp.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B031F0BB-EB04-4B6A-99E7-2CB7430A6017}|GoodsWebApp.csproj|d:\\github\\goods-easy-tool-web\\components\\pages\\userspages\\index.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{B031F0BB-EB04-4B6A-99E7-2CB7430A6017}|GoodsWebApp.csproj|solutionrelative:components\\pages\\userspages\\index.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B031F0BB-EB04-4B6A-99E7-2CB7430A6017}|GoodsWebApp.csproj|d:\\github\\goods-easy-tool-web\\users.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B031F0BB-EB04-4B6A-99E7-2CB7430A6017}|GoodsWebApp.csproj|solutionrelative:users.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B031F0BB-EB04-4B6A-99E7-2CB7430A6017}|GoodsWebApp.csproj|d:\\github\\goods-easy-tool-web\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B031F0BB-EB04-4B6A-99E7-2CB7430A6017}|GoodsWebApp.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B031F0BB-EB04-4B6A-99E7-2CB7430A6017}|GoodsWebApp.csproj|d:\\github\\goods-easy-tool-web\\components\\pages\\settings.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{B031F0BB-EB04-4B6A-99E7-2CB7430A6017}|GoodsWebApp.csproj|solutionrelative:components\\pages\\settings.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B031F0BB-EB04-4B6A-99E7-2CB7430A6017}|GoodsWebApp.csproj|d:\\github\\goods-easy-tool-web\\components\\pages\\dashboard.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{B031F0BB-EB04-4B6A-99E7-2CB7430A6017}|GoodsWebApp.csproj|solutionrelative:components\\pages\\dashboard.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B031F0BB-EB04-4B6A-99E7-2CB7430A6017}|GoodsWebApp.csproj|d:\\github\\goods-easy-tool-web\\components\\pages\\goodslist.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{B031F0BB-EB04-4B6A-99E7-2CB7430A6017}|GoodsWebApp.csproj|solutionrelative:components\\pages\\goodslist.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B031F0BB-EB04-4B6A-99E7-2CB7430A6017}|GoodsWebApp.csproj|d:\\github\\goods-easy-tool-web\\components\\layout\\navmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{B031F0BB-EB04-4B6A-99E7-2CB7430A6017}|GoodsWebApp.csproj|solutionrelative:components\\layout\\navmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B031F0BB-EB04-4B6A-99E7-2CB7430A6017}|GoodsWebApp.csproj|d:\\github\\goods-easy-tool-web\\components\\app.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{B031F0BB-EB04-4B6A-99E7-2CB7430A6017}|GoodsWebApp.csproj|solutionrelative:components\\app.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B031F0BB-EB04-4B6A-99E7-2CB7430A6017}|GoodsWebApp.csproj|d:\\github\\goods-easy-tool-web\\components\\routes.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{B031F0BB-EB04-4B6A-99E7-2CB7430A6017}|GoodsWebApp.csproj|solutionrelative:components\\routes.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B031F0BB-EB04-4B6A-99E7-2CB7430A6017}|GoodsWebApp.csproj|d:\\github\\goods-easy-tool-web\\components\\layout\\mainlayout.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{B031F0BB-EB04-4B6A-99E7-2CB7430A6017}|GoodsWebApp.csproj|solutionrelative:components\\layout\\mainlayout.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B031F0BB-EB04-4B6A-99E7-2CB7430A6017}|GoodsWebApp.csproj|d:\\github\\goods-easy-tool-web\\migrations\\20241014085314_userdatabase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B031F0BB-EB04-4B6A-99E7-2CB7430A6017}|GoodsWebApp.csproj|solutionrelative:migrations\\20241014085314_userdatabase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B031F0BB-EB04-4B6A-99E7-2CB7430A6017}|GoodsWebApp.csproj|d:\\github\\goods-easy-tool-web\\components\\pages\\userspages\\create.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{B031F0BB-EB04-4B6A-99E7-2CB7430A6017}|GoodsWebApp.csproj|solutionrelative:components\\pages\\userspages\\create.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Goods.cs",
+              "DocumentMoniker": "D:\\Github\\Goods-Easy-Tool-Web\\Goods.cs",
+              "RelativeDocumentMoniker": "Goods.cs",
+              "ToolTip": "D:\\Github\\Goods-Easy-Tool-Web\\Goods.cs",
+              "RelativeToolTip": "Goods.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-14T11:34:59.048Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "GoodsBatch.cs",
+              "DocumentMoniker": "D:\\Github\\Goods-Easy-Tool-Web\\GoodsBatch.cs",
+              "RelativeDocumentMoniker": "GoodsBatch.cs",
+              "ToolTip": "D:\\Github\\Goods-Easy-Tool-Web\\GoodsBatch.cs",
+              "RelativeToolTip": "GoodsBatch.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-14T11:34:48.422Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "GoodsWebAppContext.cs",
+              "DocumentMoniker": "D:\\Github\\Goods-Easy-Tool-Web\\Data\\GoodsWebAppContext.cs",
+              "RelativeDocumentMoniker": "Data\\GoodsWebAppContext.cs",
+              "ToolTip": "D:\\Github\\Goods-Easy-Tool-Web\\Data\\GoodsWebAppContext.cs",
+              "RelativeToolTip": "Data\\GoodsWebAppContext.cs",
+              "ViewState": "AgIAAAIAAAAANDMzMzP7vxcAAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-14T11:32:45.225Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "20241014085314_UserDatabase.cs",
+              "DocumentMoniker": "D:\\Github\\Goods-Easy-Tool-Web\\Migrations\\20241014085314_UserDatabase.cs",
+              "RelativeDocumentMoniker": "Migrations\\20241014085314_UserDatabase.cs",
+              "ToolTip": "D:\\Github\\Goods-Easy-Tool-Web\\Migrations\\20241014085314_UserDatabase.cs",
+              "RelativeToolTip": "Migrations\\20241014085314_UserDatabase.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-14T08:53:14.338Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Index.razor",
+              "DocumentMoniker": "D:\\Github\\Goods-Easy-Tool-Web\\Components\\Pages\\UsersPages\\Index.razor",
+              "RelativeDocumentMoniker": "Components\\Pages\\UsersPages\\Index.razor",
+              "ToolTip": "D:\\Github\\Goods-Easy-Tool-Web\\Components\\Pages\\UsersPages\\Index.razor",
+              "RelativeToolTip": "Components\\Pages\\UsersPages\\Index.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-10-14T08:51:59.518Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "Create.razor",
+              "DocumentMoniker": "D:\\Github\\Goods-Easy-Tool-Web\\Components\\Pages\\UsersPages\\Create.razor",
+              "RelativeDocumentMoniker": "Components\\Pages\\UsersPages\\Create.razor",
+              "ToolTip": "D:\\Github\\Goods-Easy-Tool-Web\\Components\\Pages\\UsersPages\\Create.razor",
+              "RelativeToolTip": "Components\\Pages\\UsersPages\\Create.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-10-14T08:44:44.985Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "GoodsWebApp.csproj",
+              "DocumentMoniker": "D:\\Github\\Goods-Easy-Tool-Web\\GoodsWebApp.csproj",
+              "RelativeDocumentMoniker": "GoodsWebApp.csproj",
+              "ToolTip": "D:\\Github\\Goods-Easy-Tool-Web\\GoodsWebApp.csproj",
+              "RelativeToolTip": "GoodsWebApp.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2024-10-14T08:43:48.189Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\Github\\Goods-Easy-Tool-Web\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "D:\\Github\\Goods-Easy-Tool-Web\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-14T07:58:19.968Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Users.cs",
+              "DocumentMoniker": "D:\\Github\\Goods-Easy-Tool-Web\\Users.cs",
+              "RelativeDocumentMoniker": "Users.cs",
+              "ToolTip": "D:\\Github\\Goods-Easy-Tool-Web\\Users.cs",
+              "RelativeToolTip": "Users.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAA6AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-14T07:58:15.174Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Dashboard.razor",
+              "DocumentMoniker": "D:\\Github\\Goods-Easy-Tool-Web\\Components\\Pages\\Dashboard.razor",
+              "RelativeDocumentMoniker": "Components\\Pages\\Dashboard.razor",
+              "ToolTip": "D:\\Github\\Goods-Easy-Tool-Web\\Components\\Pages\\Dashboard.razor",
+              "RelativeToolTip": "Components\\Pages\\Dashboard.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-10-14T07:55:52.014Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "GoodsList.razor",
+              "DocumentMoniker": "D:\\Github\\Goods-Easy-Tool-Web\\Components\\Pages\\GoodsList.razor",
+              "RelativeDocumentMoniker": "Components\\Pages\\GoodsList.razor",
+              "ToolTip": "D:\\Github\\Goods-Easy-Tool-Web\\Components\\Pages\\GoodsList.razor",
+              "RelativeToolTip": "Components\\Pages\\GoodsList.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-10-14T07:55:52.897Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Settings.razor",
+              "DocumentMoniker": "D:\\Github\\Goods-Easy-Tool-Web\\Components\\Pages\\Settings.razor",
+              "RelativeDocumentMoniker": "Components\\Pages\\Settings.razor",
+              "ToolTip": "D:\\Github\\Goods-Easy-Tool-Web\\Components\\Pages\\Settings.razor",
+              "RelativeToolTip": "Components\\Pages\\Settings.razor",
+              "ViewState": "AgIAADwAAAAAAAAAAAAAAEIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-10-14T07:55:39.766Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "App.razor",
+              "DocumentMoniker": "D:\\Github\\Goods-Easy-Tool-Web\\Components\\App.razor",
+              "RelativeDocumentMoniker": "Components\\App.razor",
+              "ToolTip": "D:\\Github\\Goods-Easy-Tool-Web\\Components\\App.razor",
+              "RelativeToolTip": "Components\\App.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-10-14T07:54:55.128Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "Routes.razor",
+              "DocumentMoniker": "D:\\Github\\Goods-Easy-Tool-Web\\Components\\Routes.razor",
+              "RelativeDocumentMoniker": "Components\\Routes.razor",
+              "ToolTip": "D:\\Github\\Goods-Easy-Tool-Web\\Components\\Routes.razor",
+              "RelativeToolTip": "Components\\Routes.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-10-14T07:54:55.558Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "NavMenu.razor",
+              "DocumentMoniker": "D:\\Github\\Goods-Easy-Tool-Web\\Components\\Layout\\NavMenu.razor",
+              "RelativeDocumentMoniker": "Components\\Layout\\NavMenu.razor",
+              "ToolTip": "D:\\Github\\Goods-Easy-Tool-Web\\Components\\Layout\\NavMenu.razor",
+              "RelativeToolTip": "Components\\Layout\\NavMenu.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-10-14T07:54:04.53Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "MainLayout.razor",
+              "DocumentMoniker": "D:\\Github\\Goods-Easy-Tool-Web\\Components\\Layout\\MainLayout.razor",
+              "RelativeDocumentMoniker": "Components\\Layout\\MainLayout.razor",
+              "ToolTip": "D:\\Github\\Goods-Easy-Tool-Web\\Components\\Layout\\MainLayout.razor",
+              "RelativeToolTip": "Components\\Layout\\MainLayout.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-10-14T07:54:02.453Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

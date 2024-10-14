@@ -1,0 +1,52 @@
+﻿@page "/users/details"
+@using Microsoft.EntityFrameworkCore
+@using GoodsWebApp.Models
+@inject IDbContextFactory<GoodsWebApp.Data.GoodsWebAppContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Details</PageTitle>
+
+<h1>Details</h1>
+
+<div>
+    <h2>Users</h2>
+    <hr />
+    @if (users is null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else {
+        <dl class="row">
+            <dt class="col-sm-2">CN</dt>
+            <dd class="col-sm-10">@users.CN</dd>
+            <dt class="col-sm-2">Password</dt>
+            <dd class="col-sm-10">@users.Password</dd>
+            <dt class="col-sm-2">QQ</dt>
+            <dd class="col-sm-10">@users.QQ</dd>
+            <dt class="col-sm-2">Authority</dt>
+            <dd class="col-sm-10">@users.Authority</dd>
+        </dl>
+        <div>
+            <a href="@($"/users/edit?userid={users.UserID}")">Edit</a> |
+            <a href="@($"/users")">Back to List</a>
+        </div>
+    }
+</div>
+
+@code {
+    private Users? users;
+
+    [SupplyParameterFromQuery]
+    private int UserID { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var context = DbFactory.CreateDbContext();
+        users = await context.Users.FirstOrDefaultAsync(m => m.UserID == UserID);
+
+        if (users is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+        }
+    }
+}

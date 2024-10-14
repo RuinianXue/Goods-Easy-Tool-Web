@@ -1,0 +1,104 @@
+﻿@page "/users/edit"
+@using Microsoft.EntityFrameworkCore
+@using GoodsWebApp.Models
+@inject IDbContextFactory<GoodsWebApp.Data.GoodsWebAppContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Edit</PageTitle>
+
+<h1>Edit</h1>
+
+<h2>Users</h2>
+<hr />
+@if (Users is null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-4">
+            <EditForm method="post" Model="Users" OnValidSubmit="UpdateUsers" FormName="edit" Enhance>
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+                <input type="hidden" name="Users.UserID" value="@Users.UserID" />
+                <div class="mb-3">
+                    <label for="cn" class="form-label">CN:</label>
+                    <InputText id="cn" @bind-Value="Users.CN" class="form-control" />
+                    <ValidationMessage For="() => Users.CN" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password:</label>
+                    <InputText id="password" @bind-Value="Users.Password" class="form-control" />
+                    <ValidationMessage For="() => Users.Password" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="qq" class="form-label">QQ:</label>
+                    <InputText id="qq" @bind-Value="Users.QQ" class="form-control" />
+                    <ValidationMessage For="() => Users.QQ" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="authority" class="form-label">Authority:</label>
+                    <InputNumber id="authority" @bind-Value="Users.Authority" class="form-control" />
+                    <ValidationMessage For="() => Users.Authority" class="text-danger" />
+                </div>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </EditForm>
+        </div>
+    </div>
+}
+
+<div>
+    <a href="/users">Back to List</a>
+</div>
+
+@code {
+    [SupplyParameterFromQuery]
+    private int UserID { get; set; }
+
+    [SupplyParameterFromForm]
+    private Users? Users { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var context = DbFactory.CreateDbContext();
+        Users ??= await context.Users.FirstOrDefaultAsync(m => m.UserID == UserID);
+
+        if (Users is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+        }
+    }
+
+    // To protect from overposting attacks, enable the specific properties you want to bind to.
+    // For more information, see https://learn.microsoft.com/aspnet/core/blazor/forms/#mitigate-overposting-attacks.
+    private async Task UpdateUsers()
+    {
+        using var context = DbFactory.CreateDbContext();
+        context.Attach(Users!).State = EntityState.Modified;
+
+        try
+        {
+            await context.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            if (!UsersExists(Users!.UserID))
+            {
+                NavigationManager.NavigateTo("notfound");
+            }
+            else
+            {
+                throw;
+            }
+        }
+
+        NavigationManager.NavigateTo("/users");
+    }
+
+    private bool UsersExists(int userid)
+    {
+        using var context = DbFactory.CreateDbContext();
+        return context.Users.Any(e => e.UserID == userid);
+    }
+}
