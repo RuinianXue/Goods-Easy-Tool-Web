@@ -1,0 +1,104 @@
+﻿@page "/promotechecklists/edit"
+@using Microsoft.EntityFrameworkCore
+@using GoodsWebApp.Models
+@inject IDbContextFactory<GoodsWebApp.Data.GoodsWebAppContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Edit</PageTitle>
+
+<h1>Edit</h1>
+
+<h2>PromoteCheckList</h2>
+<hr />
+@if (PromoteCheckList is null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-4">
+            <EditForm method="post" Model="PromoteCheckList" OnValidSubmit="UpdatePromoteCheckList" FormName="edit" Enhance>
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+                <input type="hidden" name="PromoteCheckList.promoteUniqueID" value="@PromoteCheckList.promoteUniqueID" />
+                <div class="mb-3">
+                    <label for="userid" class="form-label">UserID:</label>
+                    <InputNumber id="userid" @bind-Value="PromoteCheckList.UserID" class="form-control" />
+                    <ValidationMessage For="() => PromoteCheckList.UserID" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="batchid" class="form-label">BatchID:</label>
+                    <InputNumber id="batchid" @bind-Value="PromoteCheckList.BatchID" class="form-control" />
+                    <ValidationMessage For="() => PromoteCheckList.BatchID" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="sharepicurl" class="form-label">SharePicURL:</label>
+                    <InputText id="sharepicurl" @bind-Value="PromoteCheckList.SharePicURL" class="form-control" />
+                    <ValidationMessage For="() => PromoteCheckList.SharePicURL" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="checkpromotestatus" class="form-label">CheckPromoteStatus:</label>
+                    <InputNumber id="checkpromotestatus" @bind-Value="PromoteCheckList.CheckPromoteStatus" class="form-control" />
+                    <ValidationMessage For="() => PromoteCheckList.CheckPromoteStatus" class="text-danger" />
+                </div>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </EditForm>
+        </div>
+    </div>
+}
+
+<div>
+    <a href="/promotechecklists">Back to List</a>
+</div>
+
+@code {
+    [SupplyParameterFromQuery]
+    private int promoteUniqueID { get; set; }
+
+    [SupplyParameterFromForm]
+    private PromoteCheckList? PromoteCheckList { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var context = DbFactory.CreateDbContext();
+        PromoteCheckList ??= await context.PromoteCheckList.FirstOrDefaultAsync(m => m.promoteUniqueID == promoteUniqueID);
+
+        if (PromoteCheckList is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+        }
+    }
+
+    // To protect from overposting attacks, enable the specific properties you want to bind to.
+    // For more information, see https://learn.microsoft.com/aspnet/core/blazor/forms/#mitigate-overposting-attacks.
+    private async Task UpdatePromoteCheckList()
+    {
+        using var context = DbFactory.CreateDbContext();
+        context.Attach(PromoteCheckList!).State = EntityState.Modified;
+
+        try
+        {
+            await context.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            if (!PromoteCheckListExists(PromoteCheckList!.promoteUniqueID))
+            {
+                NavigationManager.NavigateTo("notfound");
+            }
+            else
+            {
+                throw;
+            }
+        }
+
+        NavigationManager.NavigateTo("/promotechecklists");
+    }
+
+    private bool PromoteCheckListExists(int promoteuniqueid)
+    {
+        using var context = DbFactory.CreateDbContext();
+        return context.PromoteCheckList.Any(e => e.promoteUniqueID == promoteuniqueid);
+    }
+}

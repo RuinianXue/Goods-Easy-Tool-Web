@@ -1,0 +1,58 @@
+﻿@page "/orders/details"
+@using Microsoft.EntityFrameworkCore
+@using GoodsWebApp.Models
+@inject IDbContextFactory<GoodsWebApp.Data.GoodsWebAppContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Details</PageTitle>
+
+<h1>Details</h1>
+
+<div>
+    <h2>Order</h2>
+    <hr />
+    @if (order is null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else {
+        <dl class="row">
+            <dt class="col-sm-2">OrderTime</dt>
+            <dd class="col-sm-10">@order.OrderTime</dd>
+            <dt class="col-sm-2">UserID</dt>
+            <dd class="col-sm-10">@order.UserID</dd>
+            <dt class="col-sm-2">BatchID</dt>
+            <dd class="col-sm-10">@order.BatchID</dd>
+            <dt class="col-sm-2">TypeID</dt>
+            <dd class="col-sm-10">@order.TypeID</dd>
+            <dt class="col-sm-2">CharacterID</dt>
+            <dd class="col-sm-10">@order.CharacterID</dd>
+            <dt class="col-sm-2">OrderAmount</dt>
+            <dd class="col-sm-10">@order.OrderAmount</dd>
+            <dt class="col-sm-2">SpecialStatus</dt>
+            <dd class="col-sm-10">@order.SpecialStatus</dd>
+        </dl>
+        <div>
+            <a href="@($"/orders/edit?orderid={order.OrderID}")">Edit</a> |
+            <a href="@($"/orders")">Back to List</a>
+        </div>
+    }
+</div>
+
+@code {
+    private Order? order;
+
+    [SupplyParameterFromQuery]
+    private int OrderID { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var context = DbFactory.CreateDbContext();
+        order = await context.Order.FirstOrDefaultAsync(m => m.OrderID == OrderID);
+
+        if (order is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+        }
+    }
+}

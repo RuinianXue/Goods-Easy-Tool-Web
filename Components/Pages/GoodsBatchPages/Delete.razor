@@ -1,0 +1,71 @@
+﻿@page "/goodsbatches/delete"
+@using Microsoft.EntityFrameworkCore
+@using GoodsWebApp.Models
+@inject IDbContextFactory<GoodsWebApp.Data.GoodsWebAppContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Delete</PageTitle>
+
+<h1>Delete</h1>
+
+<p>Are you sure you want to delete this?</p>
+<div>
+    <h2>GoodsBatch</h2>
+    <hr />
+    @if (goodsbatch is null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else {
+        <dl class="row">
+            <dt class="col-sm-2">GoodsBatchName</dt>
+            <dd class="col-sm-10">@goodsbatch.GoodsBatchName</dd>
+        </dl>
+        <dl class="row">
+            <dt class="col-sm-2">GoodsBeginTime</dt>
+            <dd class="col-sm-10">@goodsbatch.GoodsBeginTime</dd>
+        </dl>
+        <dl class="row">
+            <dt class="col-sm-2">GoodsEndTime</dt>
+            <dd class="col-sm-10">@goodsbatch.GoodsEndTime</dd>
+        </dl>
+        <dl class="row">
+            <dt class="col-sm-2">DeliveryStatus</dt>
+            <dd class="col-sm-10">@goodsbatch.DeliveryStatus</dd>
+        </dl>
+        <dl class="row">
+            <dt class="col-sm-2">SharedDiscount</dt>
+            <dd class="col-sm-10">@goodsbatch.SharedDiscount</dd>
+        </dl>
+        <EditForm method="post" Model="goodsbatch" OnValidSubmit="DeleteGoodsBatch" FormName="delete" Enhance>
+            <button type="submit" class="btn btn-danger" disabled="@(goodsbatch is null)">Delete</button> |
+            <a href="/goodsbatches">Back to List</a>
+        </EditForm>
+    }
+</div>
+
+@code {
+    private GoodsBatch? goodsbatch;
+
+    [SupplyParameterFromQuery]
+    private int GoodsBatchID { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var context = DbFactory.CreateDbContext();
+        goodsbatch = await context.GoodsBatch.FirstOrDefaultAsync(m => m.GoodsBatchID == GoodsBatchID);
+
+        if (goodsbatch is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+        }
+    }
+
+    private async Task DeleteGoodsBatch()
+    {
+        using var context = DbFactory.CreateDbContext();
+        context.GoodsBatch.Remove(goodsbatch!);
+        await context.SaveChangesAsync();
+        NavigationManager.NavigateTo("/goodsbatches");
+    }
+}

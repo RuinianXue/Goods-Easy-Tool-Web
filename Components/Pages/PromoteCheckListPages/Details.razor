@@ -1,0 +1,52 @@
+﻿@page "/promotechecklists/details"
+@using Microsoft.EntityFrameworkCore
+@using GoodsWebApp.Models
+@inject IDbContextFactory<GoodsWebApp.Data.GoodsWebAppContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Details</PageTitle>
+
+<h1>Details</h1>
+
+<div>
+    <h2>PromoteCheckList</h2>
+    <hr />
+    @if (promotechecklist is null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else {
+        <dl class="row">
+            <dt class="col-sm-2">UserID</dt>
+            <dd class="col-sm-10">@promotechecklist.UserID</dd>
+            <dt class="col-sm-2">BatchID</dt>
+            <dd class="col-sm-10">@promotechecklist.BatchID</dd>
+            <dt class="col-sm-2">SharePicURL</dt>
+            <dd class="col-sm-10">@promotechecklist.SharePicURL</dd>
+            <dt class="col-sm-2">CheckPromoteStatus</dt>
+            <dd class="col-sm-10">@promotechecklist.CheckPromoteStatus</dd>
+        </dl>
+        <div>
+            <a href="@($"/promotechecklists/edit?promoteuniqueid={promotechecklist.promoteUniqueID}")">Edit</a> |
+            <a href="@($"/promotechecklists")">Back to List</a>
+        </div>
+    }
+</div>
+
+@code {
+    private PromoteCheckList? promotechecklist;
+
+    [SupplyParameterFromQuery]
+    private int promoteUniqueID { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var context = DbFactory.CreateDbContext();
+        promotechecklist = await context.PromoteCheckList.FirstOrDefaultAsync(m => m.promoteUniqueID == promoteUniqueID);
+
+        if (promotechecklist is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+        }
+    }
+}

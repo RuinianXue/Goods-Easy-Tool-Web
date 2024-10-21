@@ -1,0 +1,104 @@
+﻿@page "/moneychecklists/edit"
+@using Microsoft.EntityFrameworkCore
+@using GoodsWebApp.Models
+@inject IDbContextFactory<GoodsWebApp.Data.GoodsWebAppContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Edit</PageTitle>
+
+<h1>Edit</h1>
+
+<h2>MoneyCheckList</h2>
+<hr />
+@if (MoneyCheckList is null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-4">
+            <EditForm method="post" Model="MoneyCheckList" OnValidSubmit="UpdateMoneyCheckList" FormName="edit" Enhance>
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+                <input type="hidden" name="MoneyCheckList.moneyUniqueID" value="@MoneyCheckList.moneyUniqueID" />
+                <div class="mb-3">
+                    <label for="userid" class="form-label">UserID:</label>
+                    <InputNumber id="userid" @bind-Value="MoneyCheckList.UserID" class="form-control" />
+                    <ValidationMessage For="() => MoneyCheckList.UserID" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="batchid" class="form-label">BatchID:</label>
+                    <InputNumber id="batchid" @bind-Value="MoneyCheckList.BatchID" class="form-control" />
+                    <ValidationMessage For="() => MoneyCheckList.BatchID" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="paypicurl" class="form-label">PayPicURL:</label>
+                    <InputText id="paypicurl" @bind-Value="MoneyCheckList.PayPicURL" class="form-control" />
+                    <ValidationMessage For="() => MoneyCheckList.PayPicURL" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="checkmoneystatus" class="form-label">CheckMoneyStatus:</label>
+                    <InputNumber id="checkmoneystatus" @bind-Value="MoneyCheckList.CheckMoneyStatus" class="form-control" />
+                    <ValidationMessage For="() => MoneyCheckList.CheckMoneyStatus" class="text-danger" />
+                </div>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </EditForm>
+        </div>
+    </div>
+}
+
+<div>
+    <a href="/moneychecklists">Back to List</a>
+</div>
+
+@code {
+    [SupplyParameterFromQuery]
+    private int moneyUniqueID { get; set; }
+
+    [SupplyParameterFromForm]
+    private MoneyCheckList? MoneyCheckList { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var context = DbFactory.CreateDbContext();
+        MoneyCheckList ??= await context.MoneyCheckList.FirstOrDefaultAsync(m => m.moneyUniqueID == moneyUniqueID);
+
+        if (MoneyCheckList is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+        }
+    }
+
+    // To protect from overposting attacks, enable the specific properties you want to bind to.
+    // For more information, see https://learn.microsoft.com/aspnet/core/blazor/forms/#mitigate-overposting-attacks.
+    private async Task UpdateMoneyCheckList()
+    {
+        using var context = DbFactory.CreateDbContext();
+        context.Attach(MoneyCheckList!).State = EntityState.Modified;
+
+        try
+        {
+            await context.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            if (!MoneyCheckListExists(MoneyCheckList!.moneyUniqueID))
+            {
+                NavigationManager.NavigateTo("notfound");
+            }
+            else
+            {
+                throw;
+            }
+        }
+
+        NavigationManager.NavigateTo("/moneychecklists");
+    }
+
+    private bool MoneyCheckListExists(int moneyuniqueid)
+    {
+        using var context = DbFactory.CreateDbContext();
+        return context.MoneyCheckList.Any(e => e.moneyUniqueID == moneyuniqueid);
+    }
+}

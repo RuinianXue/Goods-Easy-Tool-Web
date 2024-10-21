@@ -1,0 +1,55 @@
+﻿@page "/characters/delete"
+@using Microsoft.EntityFrameworkCore
+@using GoodsWebApp.Models
+@inject IDbContextFactory<GoodsWebApp.Data.GoodsWebAppContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Delete</PageTitle>
+
+<h1>Delete</h1>
+
+<p>Are you sure you want to delete this?</p>
+<div>
+    <h2>Character</h2>
+    <hr />
+    @if (character is null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else {
+        <dl class="row">
+            <dt class="col-sm-2">HotPriority</dt>
+            <dd class="col-sm-10">@character.HotPriority</dd>
+        </dl>
+        <EditForm method="post" Model="character" OnValidSubmit="DeleteCharacter" FormName="delete" Enhance>
+            <button type="submit" class="btn btn-danger" disabled="@(character is null)">Delete</button> |
+            <a href="/characters">Back to List</a>
+        </EditForm>
+    }
+</div>
+
+@code {
+    private Character? character;
+
+    [SupplyParameterFromQuery]
+    private string CharacterID { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var context = DbFactory.CreateDbContext();
+        character = await context.Character.FirstOrDefaultAsync(m => m.CharacterID == CharacterID);
+
+        if (character is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+        }
+    }
+
+    private async Task DeleteCharacter()
+    {
+        using var context = DbFactory.CreateDbContext();
+        context.Character.Remove(character!);
+        await context.SaveChangesAsync();
+        NavigationManager.NavigateTo("/characters");
+    }
+}

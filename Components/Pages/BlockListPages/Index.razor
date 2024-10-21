@@ -1,0 +1,36 @@
+﻿@page "/blocklists"
+@using Microsoft.EntityFrameworkCore
+@using Microsoft.AspNetCore.Components.QuickGrid
+@using GoodsWebApp.Models
+@using GoodsWebApp.Data
+@implements IAsyncDisposable
+@inject IDbContextFactory<GoodsWebApp.Data.GoodsWebAppContext> DbFactory
+
+<PageTitle>Index</PageTitle>
+
+<h1>Index</h1>
+
+<p>
+    <a href="blocklists/create">Create New</a>
+</p>
+
+<QuickGrid Class="table" Items="context.BlockList">
+    <PropertyColumn Property="blocklist => blocklist.DonePicURL" />
+
+    <TemplateColumn Context="blocklist">
+        <a href="@($"blocklists/edit?userid={blocklist.UserID}")">Edit</a> |
+        <a href="@($"blocklists/details?userid={blocklist.UserID}")">Details</a> |
+        <a href="@($"blocklists/delete?userid={blocklist.UserID}")">Delete</a>
+    </TemplateColumn>
+</QuickGrid>
+
+@code {
+    private GoodsWebAppContext context = default!;
+
+    protected override void OnInitialized()
+    {
+        context = DbFactory.CreateDbContext();
+    }
+
+    public async ValueTask DisposeAsync() => await context.DisposeAsync();
+}

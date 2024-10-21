@@ -1,0 +1,59 @@
+﻿@page "/deliverychecklists/create"
+@using Microsoft.EntityFrameworkCore
+@using GoodsWebApp.Models
+@inject IDbContextFactory<GoodsWebApp.Data.GoodsWebAppContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Create</PageTitle>
+
+<h1>Create</h1>
+
+<h2>DeliveryCheckList</h2>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <EditForm method="post" Model="DeliveryCheckList" OnValidSubmit="AddDeliveryCheckList" FormName="create" Enhance>
+            <DataAnnotationsValidator />
+            <ValidationSummary class="text-danger" />
+            <div class="mb-3">
+                <label for="userid" class="form-label">UserID:</label> 
+                <InputNumber id="userid" @bind-Value="DeliveryCheckList.UserID" class="form-control" /> 
+                <ValidationMessage For="() => DeliveryCheckList.UserID" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="deliveryrequesttime" class="form-label">DeliveryRequestTime:</label> 
+                <InputDate id="deliveryrequesttime" @bind-Value="DeliveryCheckList.DeliveryRequestTime" class="form-control" /> 
+                <ValidationMessage For="() => DeliveryCheckList.DeliveryRequestTime" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="listpicurl" class="form-label">ListPicURL:</label> 
+                <InputText id="listpicurl" @bind-Value="DeliveryCheckList.ListPicURL" class="form-control" /> 
+                <ValidationMessage For="() => DeliveryCheckList.ListPicURL" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="checkdeliverystatus" class="form-label">CheckDeliveryStatus:</label> 
+                <InputNumber id="checkdeliverystatus" @bind-Value="DeliveryCheckList.CheckDeliveryStatus" class="form-control" /> 
+                <ValidationMessage For="() => DeliveryCheckList.CheckDeliveryStatus" class="text-danger" /> 
+            </div>        
+            <button type="submit" class="btn btn-primary">Create</button>
+        </EditForm>
+    </div>
+</div>
+
+<div>
+    <a href="/deliverychecklists">Back to List</a>
+</div>
+
+@code {
+    [SupplyParameterFromForm]
+    private DeliveryCheckList DeliveryCheckList { get; set; } = new();
+
+    // To protect from overposting attacks, see https://learn.microsoft.com/aspnet/core/blazor/forms/#mitigate-overposting-attacks.
+    private async Task AddDeliveryCheckList()
+    {
+        using var context = DbFactory.CreateDbContext();
+        context.DeliveryCheckList.Add(DeliveryCheckList);
+        await context.SaveChangesAsync();
+        NavigationManager.NavigateTo("/deliverychecklists");
+    }
+}

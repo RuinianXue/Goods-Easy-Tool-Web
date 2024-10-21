@@ -1,0 +1,59 @@
+﻿@page "/promotechecklists/create"
+@using Microsoft.EntityFrameworkCore
+@using GoodsWebApp.Models
+@inject IDbContextFactory<GoodsWebApp.Data.GoodsWebAppContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Create</PageTitle>
+
+<h1>Create</h1>
+
+<h2>PromoteCheckList</h2>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <EditForm method="post" Model="PromoteCheckList" OnValidSubmit="AddPromoteCheckList" FormName="create" Enhance>
+            <DataAnnotationsValidator />
+            <ValidationSummary class="text-danger" />
+            <div class="mb-3">
+                <label for="userid" class="form-label">UserID:</label> 
+                <InputNumber id="userid" @bind-Value="PromoteCheckList.UserID" class="form-control" /> 
+                <ValidationMessage For="() => PromoteCheckList.UserID" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="batchid" class="form-label">BatchID:</label> 
+                <InputNumber id="batchid" @bind-Value="PromoteCheckList.BatchID" class="form-control" /> 
+                <ValidationMessage For="() => PromoteCheckList.BatchID" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="sharepicurl" class="form-label">SharePicURL:</label> 
+                <InputText id="sharepicurl" @bind-Value="PromoteCheckList.SharePicURL" class="form-control" /> 
+                <ValidationMessage For="() => PromoteCheckList.SharePicURL" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="checkpromotestatus" class="form-label">CheckPromoteStatus:</label> 
+                <InputNumber id="checkpromotestatus" @bind-Value="PromoteCheckList.CheckPromoteStatus" class="form-control" /> 
+                <ValidationMessage For="() => PromoteCheckList.CheckPromoteStatus" class="text-danger" /> 
+            </div>        
+            <button type="submit" class="btn btn-primary">Create</button>
+        </EditForm>
+    </div>
+</div>
+
+<div>
+    <a href="/promotechecklists">Back to List</a>
+</div>
+
+@code {
+    [SupplyParameterFromForm]
+    private PromoteCheckList PromoteCheckList { get; set; } = new();
+
+    // To protect from overposting attacks, see https://learn.microsoft.com/aspnet/core/blazor/forms/#mitigate-overposting-attacks.
+    private async Task AddPromoteCheckList()
+    {
+        using var context = DbFactory.CreateDbContext();
+        context.PromoteCheckList.Add(PromoteCheckList);
+        await context.SaveChangesAsync();
+        NavigationManager.NavigateTo("/promotechecklists");
+    }
+}

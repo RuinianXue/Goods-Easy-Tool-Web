@@ -1,0 +1,54 @@
+﻿@page "/characterpriorities/create"
+@using Microsoft.EntityFrameworkCore
+@using GoodsWebApp.Models
+@inject IDbContextFactory<GoodsWebApp.Data.GoodsWebAppContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Create</PageTitle>
+
+<h1>Create</h1>
+
+<h2>CharacterPriority</h2>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <EditForm method="post" Model="CharacterPriority" OnValidSubmit="AddCharacterPriority" FormName="create" Enhance>
+            <DataAnnotationsValidator />
+            <ValidationSummary class="text-danger" />
+            <div class="mb-3">
+                <label for="prioritygrade" class="form-label">PriorityGrade:</label> 
+                <InputNumber id="prioritygrade" @bind-Value="CharacterPriority.PriorityGrade" class="form-control" /> 
+                <ValidationMessage For="() => CharacterPriority.PriorityGrade" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="userid" class="form-label">UserID:</label> 
+                <InputNumber id="userid" @bind-Value="CharacterPriority.UserID" class="form-control" /> 
+                <ValidationMessage For="() => CharacterPriority.UserID" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="forcepercent" class="form-label">ForcePercent:</label> 
+                <InputNumber id="forcepercent" @bind-Value="CharacterPriority.ForcePercent" class="form-control" /> 
+                <ValidationMessage For="() => CharacterPriority.ForcePercent" class="text-danger" /> 
+            </div>        
+            <button type="submit" class="btn btn-primary">Create</button>
+        </EditForm>
+    </div>
+</div>
+
+<div>
+    <a href="/characterpriorities">Back to List</a>
+</div>
+
+@code {
+    [SupplyParameterFromForm]
+    private CharacterPriority CharacterPriority { get; set; } = new();
+
+    // To protect from overposting attacks, see https://learn.microsoft.com/aspnet/core/blazor/forms/#mitigate-overposting-attacks.
+    private async Task AddCharacterPriority()
+    {
+        using var context = DbFactory.CreateDbContext();
+        context.CharacterPriority.Add(CharacterPriority);
+        await context.SaveChangesAsync();
+        NavigationManager.NavigateTo("/characterpriorities");
+    }
+}

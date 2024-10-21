@@ -1,0 +1,79 @@
+﻿@page "/orders/delete"
+@using Microsoft.EntityFrameworkCore
+@using GoodsWebApp.Models
+@inject IDbContextFactory<GoodsWebApp.Data.GoodsWebAppContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Delete</PageTitle>
+
+<h1>Delete</h1>
+
+<p>Are you sure you want to delete this?</p>
+<div>
+    <h2>Order</h2>
+    <hr />
+    @if (order is null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else {
+        <dl class="row">
+            <dt class="col-sm-2">OrderTime</dt>
+            <dd class="col-sm-10">@order.OrderTime</dd>
+        </dl>
+        <dl class="row">
+            <dt class="col-sm-2">UserID</dt>
+            <dd class="col-sm-10">@order.UserID</dd>
+        </dl>
+        <dl class="row">
+            <dt class="col-sm-2">BatchID</dt>
+            <dd class="col-sm-10">@order.BatchID</dd>
+        </dl>
+        <dl class="row">
+            <dt class="col-sm-2">TypeID</dt>
+            <dd class="col-sm-10">@order.TypeID</dd>
+        </dl>
+        <dl class="row">
+            <dt class="col-sm-2">CharacterID</dt>
+            <dd class="col-sm-10">@order.CharacterID</dd>
+        </dl>
+        <dl class="row">
+            <dt class="col-sm-2">OrderAmount</dt>
+            <dd class="col-sm-10">@order.OrderAmount</dd>
+        </dl>
+        <dl class="row">
+            <dt class="col-sm-2">SpecialStatus</dt>
+            <dd class="col-sm-10">@order.SpecialStatus</dd>
+        </dl>
+        <EditForm method="post" Model="order" OnValidSubmit="DeleteOrder" FormName="delete" Enhance>
+            <button type="submit" class="btn btn-danger" disabled="@(order is null)">Delete</button> |
+            <a href="/orders">Back to List</a>
+        </EditForm>
+    }
+</div>
+
+@code {
+    private Order? order;
+
+    [SupplyParameterFromQuery]
+    private int OrderID { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var context = DbFactory.CreateDbContext();
+        order = await context.Order.FirstOrDefaultAsync(m => m.OrderID == OrderID);
+
+        if (order is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+        }
+    }
+
+    private async Task DeleteOrder()
+    {
+        using var context = DbFactory.CreateDbContext();
+        context.Order.Remove(order!);
+        await context.SaveChangesAsync();
+        NavigationManager.NavigateTo("/orders");
+    }
+}

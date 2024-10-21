@@ -1,0 +1,46 @@
+﻿@page "/blocklists/details"
+@using Microsoft.EntityFrameworkCore
+@using GoodsWebApp.Models
+@inject IDbContextFactory<GoodsWebApp.Data.GoodsWebAppContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Details</PageTitle>
+
+<h1>Details</h1>
+
+<div>
+    <h2>BlockList</h2>
+    <hr />
+    @if (blocklist is null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else {
+        <dl class="row">
+            <dt class="col-sm-2">DonePicURL</dt>
+            <dd class="col-sm-10">@blocklist.DonePicURL</dd>
+        </dl>
+        <div>
+            <a href="@($"/blocklists/edit?userid={blocklist.UserID}")">Edit</a> |
+            <a href="@($"/blocklists")">Back to List</a>
+        </div>
+    }
+</div>
+
+@code {
+    private BlockList? blocklist;
+
+    [SupplyParameterFromQuery]
+    private int UserID { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var context = DbFactory.CreateDbContext();
+        blocklist = await context.BlockList.FirstOrDefaultAsync(m => m.UserID == UserID);
+
+        if (blocklist is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+        }
+    }
+}

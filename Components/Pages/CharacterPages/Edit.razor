@@ -1,0 +1,89 @@
+﻿@page "/characters/edit"
+@using Microsoft.EntityFrameworkCore
+@using GoodsWebApp.Models
+@inject IDbContextFactory<GoodsWebApp.Data.GoodsWebAppContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Edit</PageTitle>
+
+<h1>Edit</h1>
+
+<h2>Character</h2>
+<hr />
+@if (Character is null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-4">
+            <EditForm method="post" Model="Character" OnValidSubmit="UpdateCharacter" FormName="edit" Enhance>
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+                <input type="hidden" name="Character.CharacterID" value="@Character.CharacterID" />
+                <div class="mb-3">
+                    <label for="hotpriority" class="form-label">HotPriority:</label>
+                    <InputNumber id="hotpriority" @bind-Value="Character.HotPriority" class="form-control" />
+                    <ValidationMessage For="() => Character.HotPriority" class="text-danger" />
+                </div>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </EditForm>
+        </div>
+    </div>
+}
+
+<div>
+    <a href="/characters">Back to List</a>
+</div>
+
+@code {
+    [SupplyParameterFromQuery]
+    private string CharacterID { get; set; }
+
+    [SupplyParameterFromForm]
+    private Character? Character { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var context = DbFactory.CreateDbContext();
+        Character ??= await context.Character.FirstOrDefaultAsync(m => m.CharacterID == CharacterID);
+
+        if (Character is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+        }
+    }
+
+    // To protect from overposting attacks, enable the specific properties you want to bind to.
+    // For more information, see https://learn.microsoft.com/aspnet/core/blazor/forms/#mitigate-overposting-attacks.
+    private async Task UpdateCharacter()
+    {
+        using var context = DbFactory.CreateDbContext();
+        context.Attach(Character!).State = EntityState.Modified;
+
+        try
+        {
+            await context.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            if (!CharacterExists(Character!.CharacterID))
+            {
+                NavigationManager.NavigateTo("notfound");
+            }
+            else
+            {
+                throw;
+            }
+        }
+
+        NavigationManager.NavigateTo("/characters");
+    }
+
+    private bool CharacterExists(string characterid)
+    {
+        using var context = DbFactory.CreateDbContext();
+        return context.Character.Any(e => e.CharacterID == characterid);
+    }
+}

@@ -1,0 +1,52 @@
+﻿@page "/deliverychecklists/details"
+@using Microsoft.EntityFrameworkCore
+@using GoodsWebApp.Models
+@inject IDbContextFactory<GoodsWebApp.Data.GoodsWebAppContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Details</PageTitle>
+
+<h1>Details</h1>
+
+<div>
+    <h2>DeliveryCheckList</h2>
+    <hr />
+    @if (deliverychecklist is null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else {
+        <dl class="row">
+            <dt class="col-sm-2">UserID</dt>
+            <dd class="col-sm-10">@deliverychecklist.UserID</dd>
+            <dt class="col-sm-2">DeliveryRequestTime</dt>
+            <dd class="col-sm-10">@deliverychecklist.DeliveryRequestTime</dd>
+            <dt class="col-sm-2">ListPicURL</dt>
+            <dd class="col-sm-10">@deliverychecklist.ListPicURL</dd>
+            <dt class="col-sm-2">CheckDeliveryStatus</dt>
+            <dd class="col-sm-10">@deliverychecklist.CheckDeliveryStatus</dd>
+        </dl>
+        <div>
+            <a href="@($"/deliverychecklists/edit?deliveryuniqueid={deliverychecklist.deliveryUniqueID}")">Edit</a> |
+            <a href="@($"/deliverychecklists")">Back to List</a>
+        </div>
+    }
+</div>
+
+@code {
+    private DeliveryCheckList? deliverychecklist;
+
+    [SupplyParameterFromQuery]
+    private int deliveryUniqueID { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var context = DbFactory.CreateDbContext();
+        deliverychecklist = await context.DeliveryCheckList.FirstOrDefaultAsync(m => m.deliveryUniqueID == deliveryUniqueID);
+
+        if (deliverychecklist is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+        }
+    }
+}

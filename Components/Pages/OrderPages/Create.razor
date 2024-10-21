@@ -1,0 +1,74 @@
+﻿@page "/orders/create"
+@using Microsoft.EntityFrameworkCore
+@using GoodsWebApp.Models
+@inject IDbContextFactory<GoodsWebApp.Data.GoodsWebAppContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Create</PageTitle>
+
+<h1>Create</h1>
+
+<h2>Order</h2>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <EditForm method="post" Model="Order" OnValidSubmit="AddOrder" FormName="create" Enhance>
+            <DataAnnotationsValidator />
+            <ValidationSummary class="text-danger" />
+            <div class="mb-3">
+                <label for="ordertime" class="form-label">OrderTime:</label> 
+                <InputDate id="ordertime" @bind-Value="Order.OrderTime" class="form-control" /> 
+                <ValidationMessage For="() => Order.OrderTime" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="userid" class="form-label">UserID:</label> 
+                <InputNumber id="userid" @bind-Value="Order.UserID" class="form-control" /> 
+                <ValidationMessage For="() => Order.UserID" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="batchid" class="form-label">BatchID:</label> 
+                <InputNumber id="batchid" @bind-Value="Order.BatchID" class="form-control" /> 
+                <ValidationMessage For="() => Order.BatchID" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="typeid" class="form-label">TypeID:</label> 
+                <InputNumber id="typeid" @bind-Value="Order.TypeID" class="form-control" /> 
+                <ValidationMessage For="() => Order.TypeID" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="characterid" class="form-label">CharacterID:</label> 
+                <InputNumber id="characterid" @bind-Value="Order.CharacterID" class="form-control" /> 
+                <ValidationMessage For="() => Order.CharacterID" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="orderamount" class="form-label">OrderAmount:</label> 
+                <InputNumber id="orderamount" @bind-Value="Order.OrderAmount" class="form-control" /> 
+                <ValidationMessage For="() => Order.OrderAmount" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="specialstatus" class="form-label">SpecialStatus:</label> 
+                <InputNumber id="specialstatus" @bind-Value="Order.SpecialStatus" class="form-control" /> 
+                <ValidationMessage For="() => Order.SpecialStatus" class="text-danger" /> 
+            </div>        
+            <button type="submit" class="btn btn-primary">Create</button>
+        </EditForm>
+    </div>
+</div>
+
+<div>
+    <a href="/orders">Back to List</a>
+</div>
+
+@code {
+    [SupplyParameterFromForm]
+    private Order Order { get; set; } = new();
+
+    // To protect from overposting attacks, see https://learn.microsoft.com/aspnet/core/blazor/forms/#mitigate-overposting-attacks.
+    private async Task AddOrder()
+    {
+        using var context = DbFactory.CreateDbContext();
+        context.Order.Add(Order);
+        await context.SaveChangesAsync();
+        NavigationManager.NavigateTo("/orders");
+    }
+}

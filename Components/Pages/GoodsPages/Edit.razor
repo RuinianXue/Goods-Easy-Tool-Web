@@ -1,0 +1,104 @@
+﻿@page "/goods/edit"
+@using Microsoft.EntityFrameworkCore
+@using GoodsWebApp.Models
+@inject IDbContextFactory<GoodsWebApp.Data.GoodsWebAppContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Edit</PageTitle>
+
+<h1>Edit</h1>
+
+<h2>Goods</h2>
+<hr />
+@if (Goods is null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-4">
+            <EditForm method="post" Model="Goods" OnValidSubmit="UpdateGoods" FormName="edit" Enhance>
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+                <input type="hidden" name="Goods.GoodsID" value="@Goods.GoodsID" />
+                <div class="mb-3">
+                    <label for="goodstypeid" class="form-label">GoodsTypeID:</label>
+                    <InputNumber id="goodstypeid" @bind-Value="Goods.GoodsTypeID" class="form-control" />
+                    <ValidationMessage For="() => Goods.GoodsTypeID" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="goodscharacter" class="form-label">GoodsCharacter:</label>
+                    <InputNumber id="goodscharacter" @bind-Value="Goods.GoodsCharacter" class="form-control" />
+                    <ValidationMessage For="() => Goods.GoodsCharacter" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="goodscountequal" class="form-label">GoodsCountEqual:</label>
+                    <InputNumber id="goodscountequal" @bind-Value="Goods.GoodsCountEqual" class="form-control" />
+                    <ValidationMessage For="() => Goods.GoodsCountEqual" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="goodsboundequal" class="form-label">GoodsBoundEqual:</label>
+                    <InputNumber id="goodsboundequal" @bind-Value="Goods.GoodsBoundEqual" class="form-control" />
+                    <ValidationMessage For="() => Goods.GoodsBoundEqual" class="text-danger" />
+                </div>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </EditForm>
+        </div>
+    </div>
+}
+
+<div>
+    <a href="/goods">Back to List</a>
+</div>
+
+@code {
+    [SupplyParameterFromQuery]
+    private int GoodsID { get; set; }
+
+    [SupplyParameterFromForm]
+    private Goods? Goods { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var context = DbFactory.CreateDbContext();
+        Goods ??= await context.Goods.FirstOrDefaultAsync(m => m.GoodsID == GoodsID);
+
+        if (Goods is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+        }
+    }
+
+    // To protect from overposting attacks, enable the specific properties you want to bind to.
+    // For more information, see https://learn.microsoft.com/aspnet/core/blazor/forms/#mitigate-overposting-attacks.
+    private async Task UpdateGoods()
+    {
+        using var context = DbFactory.CreateDbContext();
+        context.Attach(Goods!).State = EntityState.Modified;
+
+        try
+        {
+            await context.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            if (!GoodsExists(Goods!.GoodsID))
+            {
+                NavigationManager.NavigateTo("notfound");
+            }
+            else
+            {
+                throw;
+            }
+        }
+
+        NavigationManager.NavigateTo("/goods");
+    }
+
+    private bool GoodsExists(int goodsid)
+    {
+        using var context = DbFactory.CreateDbContext();
+        return context.Goods.Any(e => e.GoodsID == goodsid);
+    }
+}

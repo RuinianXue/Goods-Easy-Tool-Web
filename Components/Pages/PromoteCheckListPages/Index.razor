@@ -1,0 +1,39 @@
+﻿@page "/promotechecklists"
+@using Microsoft.EntityFrameworkCore
+@using Microsoft.AspNetCore.Components.QuickGrid
+@using GoodsWebApp.Models
+@using GoodsWebApp.Data
+@implements IAsyncDisposable
+@inject IDbContextFactory<GoodsWebApp.Data.GoodsWebAppContext> DbFactory
+
+<PageTitle>Index</PageTitle>
+
+<h1>Index</h1>
+
+<p>
+    <a href="promotechecklists/create">Create New</a>
+</p>
+
+<QuickGrid Class="table" Items="context.PromoteCheckList">
+    <PropertyColumn Property="promotechecklist => promotechecklist.UserID" />
+    <PropertyColumn Property="promotechecklist => promotechecklist.BatchID" />
+    <PropertyColumn Property="promotechecklist => promotechecklist.SharePicURL" />
+    <PropertyColumn Property="promotechecklist => promotechecklist.CheckPromoteStatus" />
+
+    <TemplateColumn Context="promotechecklist">
+        <a href="@($"promotechecklists/edit?promoteuniqueid={promotechecklist.promoteUniqueID}")">Edit</a> |
+        <a href="@($"promotechecklists/details?promoteuniqueid={promotechecklist.promoteUniqueID}")">Details</a> |
+        <a href="@($"promotechecklists/delete?promoteuniqueid={promotechecklist.promoteUniqueID}")">Delete</a>
+    </TemplateColumn>
+</QuickGrid>
+
+@code {
+    private GoodsWebAppContext context = default!;
+
+    protected override void OnInitialized()
+    {
+        context = DbFactory.CreateDbContext();
+    }
+
+    public async ValueTask DisposeAsync() => await context.DisposeAsync();
+}

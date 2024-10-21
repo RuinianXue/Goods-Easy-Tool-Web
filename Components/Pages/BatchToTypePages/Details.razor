@@ -1,0 +1,46 @@
+﻿@page "/batchtotypes/details"
+@using Microsoft.EntityFrameworkCore
+@using GoodsWebApp.Models
+@inject IDbContextFactory<GoodsWebApp.Data.GoodsWebAppContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Details</PageTitle>
+
+<h1>Details</h1>
+
+<div>
+    <h2>BatchToType</h2>
+    <hr />
+    @if (batchtotype is null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else {
+        <dl class="row">
+            <dt class="col-sm-2">GoodsTypeID</dt>
+            <dd class="col-sm-10">@batchtotype.GoodsTypeID</dd>
+        </dl>
+        <div>
+            <a href="@($"/batchtotypes/edit?goodsbatchid={batchtotype.GoodsBatchID}")">Edit</a> |
+            <a href="@($"/batchtotypes")">Back to List</a>
+        </div>
+    }
+</div>
+
+@code {
+    private BatchToType? batchtotype;
+
+    [SupplyParameterFromQuery]
+    private int GoodsBatchID { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var context = DbFactory.CreateDbContext();
+        batchtotype = await context.BatchToType.FirstOrDefaultAsync(m => m.GoodsBatchID == GoodsBatchID);
+
+        if (batchtotype is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+        }
+    }
+}

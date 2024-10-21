@@ -1,0 +1,40 @@
+﻿@page "/goodsbatches"
+@using Microsoft.EntityFrameworkCore
+@using Microsoft.AspNetCore.Components.QuickGrid
+@using GoodsWebApp.Models
+@using GoodsWebApp.Data
+@implements IAsyncDisposable
+@inject IDbContextFactory<GoodsWebApp.Data.GoodsWebAppContext> DbFactory
+
+<PageTitle>Index</PageTitle>
+
+<h1>Index</h1>
+
+<p>
+    <a href="goodsbatches/create">Create New</a>
+</p>
+
+<QuickGrid Class="table" Items="context.GoodsBatch">
+    <PropertyColumn Property="goodsbatch => goodsbatch.GoodsBatchName" />
+    <PropertyColumn Property="goodsbatch => goodsbatch.GoodsBeginTime" />
+    <PropertyColumn Property="goodsbatch => goodsbatch.GoodsEndTime" />
+    <PropertyColumn Property="goodsbatch => goodsbatch.DeliveryStatus" />
+    <PropertyColumn Property="goodsbatch => goodsbatch.SharedDiscount" />
+
+    <TemplateColumn Context="goodsbatch">
+        <a href="@($"goodsbatches/edit?goodsbatchid={goodsbatch.GoodsBatchID}")">Edit</a> |
+        <a href="@($"goodsbatches/details?goodsbatchid={goodsbatch.GoodsBatchID}")">Details</a> |
+        <a href="@($"goodsbatches/delete?goodsbatchid={goodsbatch.GoodsBatchID}")">Delete</a>
+    </TemplateColumn>
+</QuickGrid>
+
+@code {
+    private GoodsWebAppContext context = default!;
+
+    protected override void OnInitialized()
+    {
+        context = DbFactory.CreateDbContext();
+    }
+
+    public async ValueTask DisposeAsync() => await context.DisposeAsync();
+}

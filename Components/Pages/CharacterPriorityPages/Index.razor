@@ -1,0 +1,38 @@
+﻿@page "/characterpriorities"
+@using Microsoft.EntityFrameworkCore
+@using Microsoft.AspNetCore.Components.QuickGrid
+@using GoodsWebApp.Models
+@using GoodsWebApp.Data
+@implements IAsyncDisposable
+@inject IDbContextFactory<GoodsWebApp.Data.GoodsWebAppContext> DbFactory
+
+<PageTitle>Index</PageTitle>
+
+<h1>Index</h1>
+
+<p>
+    <a href="characterpriorities/create">Create New</a>
+</p>
+
+<QuickGrid Class="table" Items="context.CharacterPriority">
+    <PropertyColumn Property="characterpriority => characterpriority.PriorityGrade" />
+    <PropertyColumn Property="characterpriority => characterpriority.UserID" />
+    <PropertyColumn Property="characterpriority => characterpriority.ForcePercent" />
+
+    <TemplateColumn Context="characterpriority">
+        <a href="@($"characterpriorities/edit?characterid={characterpriority.CharacterID}")">Edit</a> |
+        <a href="@($"characterpriorities/details?characterid={characterpriority.CharacterID}")">Details</a> |
+        <a href="@($"characterpriorities/delete?characterid={characterpriority.CharacterID}")">Delete</a>
+    </TemplateColumn>
+</QuickGrid>
+
+@code {
+    private GoodsWebAppContext context = default!;
+
+    protected override void OnInitialized()
+    {
+        context = DbFactory.CreateDbContext();
+    }
+
+    public async ValueTask DisposeAsync() => await context.DisposeAsync();
+}

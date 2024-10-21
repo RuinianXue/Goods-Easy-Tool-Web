@@ -1,0 +1,59 @@
+﻿@page "/goods/create"
+@using Microsoft.EntityFrameworkCore
+@using GoodsWebApp.Models
+@inject IDbContextFactory<GoodsWebApp.Data.GoodsWebAppContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Create</PageTitle>
+
+<h1>Create</h1>
+
+<h2>Goods</h2>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <EditForm method="post" Model="Goods" OnValidSubmit="AddGoods" FormName="create" Enhance>
+            <DataAnnotationsValidator />
+            <ValidationSummary class="text-danger" />
+            <div class="mb-3">
+                <label for="goodstypeid" class="form-label">GoodsTypeID:</label> 
+                <InputNumber id="goodstypeid" @bind-Value="Goods.GoodsTypeID" class="form-control" /> 
+                <ValidationMessage For="() => Goods.GoodsTypeID" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="goodscharacter" class="form-label">GoodsCharacter:</label> 
+                <InputNumber id="goodscharacter" @bind-Value="Goods.GoodsCharacter" class="form-control" /> 
+                <ValidationMessage For="() => Goods.GoodsCharacter" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="goodscountequal" class="form-label">GoodsCountEqual:</label> 
+                <InputNumber id="goodscountequal" @bind-Value="Goods.GoodsCountEqual" class="form-control" /> 
+                <ValidationMessage For="() => Goods.GoodsCountEqual" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="goodsboundequal" class="form-label">GoodsBoundEqual:</label> 
+                <InputNumber id="goodsboundequal" @bind-Value="Goods.GoodsBoundEqual" class="form-control" /> 
+                <ValidationMessage For="() => Goods.GoodsBoundEqual" class="text-danger" /> 
+            </div>        
+            <button type="submit" class="btn btn-primary">Create</button>
+        </EditForm>
+    </div>
+</div>
+
+<div>
+    <a href="/goods">Back to List</a>
+</div>
+
+@code {
+    [SupplyParameterFromForm]
+    private Goods Goods { get; set; } = new();
+
+    // To protect from overposting attacks, see https://learn.microsoft.com/aspnet/core/blazor/forms/#mitigate-overposting-attacks.
+    private async Task AddGoods()
+    {
+        using var context = DbFactory.CreateDbContext();
+        context.Goods.Add(Goods);
+        await context.SaveChangesAsync();
+        NavigationManager.NavigateTo("/goods");
+    }
+}

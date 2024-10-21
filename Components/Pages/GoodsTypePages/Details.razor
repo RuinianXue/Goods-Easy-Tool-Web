@@ -1,0 +1,50 @@
+﻿@page "/goodstypes/details"
+@using Microsoft.EntityFrameworkCore
+@using GoodsWebApp.Models
+@inject IDbContextFactory<GoodsWebApp.Data.GoodsWebAppContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Details</PageTitle>
+
+<h1>Details</h1>
+
+<div>
+    <h2>GoodsType</h2>
+    <hr />
+    @if (goodstype is null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else {
+        <dl class="row">
+            <dt class="col-sm-2">GoodsTypeName</dt>
+            <dd class="col-sm-10">@goodstype.GoodsTypeName</dd>
+            <dt class="col-sm-2">PriceInTotal</dt>
+            <dd class="col-sm-10">@goodstype.PriceInTotal</dd>
+            <dt class="col-sm-2">LimitAmount</dt>
+            <dd class="col-sm-10">@goodstype.LimitAmount</dd>
+        </dl>
+        <div>
+            <a href="@($"/goodstypes/edit?goodstypeid={goodstype.GoodsTypeID}")">Edit</a> |
+            <a href="@($"/goodstypes")">Back to List</a>
+        </div>
+    }
+</div>
+
+@code {
+    private GoodsType? goodstype;
+
+    [SupplyParameterFromQuery]
+    private int GoodsTypeID { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var context = DbFactory.CreateDbContext();
+        goodstype = await context.GoodsType.FirstOrDefaultAsync(m => m.GoodsTypeID == GoodsTypeID);
+
+        if (goodstype is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+        }
+    }
+}

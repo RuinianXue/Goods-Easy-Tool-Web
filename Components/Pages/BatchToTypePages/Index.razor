@@ -1,0 +1,36 @@
+﻿@page "/batchtotypes"
+@using Microsoft.EntityFrameworkCore
+@using Microsoft.AspNetCore.Components.QuickGrid
+@using GoodsWebApp.Models
+@using GoodsWebApp.Data
+@implements IAsyncDisposable
+@inject IDbContextFactory<GoodsWebApp.Data.GoodsWebAppContext> DbFactory
+
+<PageTitle>Index</PageTitle>
+
+<h1>Index</h1>
+
+<p>
+    <a href="batchtotypes/create">Create New</a>
+</p>
+
+<QuickGrid Class="table" Items="context.BatchToType">
+    <PropertyColumn Property="batchtotype => batchtotype.GoodsTypeID" />
+
+    <TemplateColumn Context="batchtotype">
+        <a href="@($"batchtotypes/edit?goodsbatchid={batchtotype.GoodsBatchID}")">Edit</a> |
+        <a href="@($"batchtotypes/details?goodsbatchid={batchtotype.GoodsBatchID}")">Details</a> |
+        <a href="@($"batchtotypes/delete?goodsbatchid={batchtotype.GoodsBatchID}")">Delete</a>
+    </TemplateColumn>
+</QuickGrid>
+
+@code {
+    private GoodsWebAppContext context = default!;
+
+    protected override void OnInitialized()
+    {
+        context = DbFactory.CreateDbContext();
+    }
+
+    public async ValueTask DisposeAsync() => await context.DisposeAsync();
+}

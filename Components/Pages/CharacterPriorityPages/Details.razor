@@ -1,0 +1,50 @@
+﻿@page "/characterpriorities/details"
+@using Microsoft.EntityFrameworkCore
+@using GoodsWebApp.Models
+@inject IDbContextFactory<GoodsWebApp.Data.GoodsWebAppContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Details</PageTitle>
+
+<h1>Details</h1>
+
+<div>
+    <h2>CharacterPriority</h2>
+    <hr />
+    @if (characterpriority is null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else {
+        <dl class="row">
+            <dt class="col-sm-2">PriorityGrade</dt>
+            <dd class="col-sm-10">@characterpriority.PriorityGrade</dd>
+            <dt class="col-sm-2">UserID</dt>
+            <dd class="col-sm-10">@characterpriority.UserID</dd>
+            <dt class="col-sm-2">ForcePercent</dt>
+            <dd class="col-sm-10">@characterpriority.ForcePercent</dd>
+        </dl>
+        <div>
+            <a href="@($"/characterpriorities/edit?characterid={characterpriority.CharacterID}")">Edit</a> |
+            <a href="@($"/characterpriorities")">Back to List</a>
+        </div>
+    }
+</div>
+
+@code {
+    private CharacterPriority? characterpriority;
+
+    [SupplyParameterFromQuery]
+    private string CharacterID { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var context = DbFactory.CreateDbContext();
+        characterpriority = await context.CharacterPriority.FirstOrDefaultAsync(m => m.CharacterID == CharacterID);
+
+        if (characterpriority is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+        }
+    }
+}

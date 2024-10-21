@@ -1,0 +1,89 @@
+﻿@page "/blocklists/edit"
+@using Microsoft.EntityFrameworkCore
+@using GoodsWebApp.Models
+@inject IDbContextFactory<GoodsWebApp.Data.GoodsWebAppContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Edit</PageTitle>
+
+<h1>Edit</h1>
+
+<h2>BlockList</h2>
+<hr />
+@if (BlockList is null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-4">
+            <EditForm method="post" Model="BlockList" OnValidSubmit="UpdateBlockList" FormName="edit" Enhance>
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+                <input type="hidden" name="BlockList.UserID" value="@BlockList.UserID" />
+                <div class="mb-3">
+                    <label for="donepicurl" class="form-label">DonePicURL:</label>
+                    <InputText id="donepicurl" @bind-Value="BlockList.DonePicURL" class="form-control" />
+                    <ValidationMessage For="() => BlockList.DonePicURL" class="text-danger" />
+                </div>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </EditForm>
+        </div>
+    </div>
+}
+
+<div>
+    <a href="/blocklists">Back to List</a>
+</div>
+
+@code {
+    [SupplyParameterFromQuery]
+    private int UserID { get; set; }
+
+    [SupplyParameterFromForm]
+    private BlockList? BlockList { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var context = DbFactory.CreateDbContext();
+        BlockList ??= await context.BlockList.FirstOrDefaultAsync(m => m.UserID == UserID);
+
+        if (BlockList is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+        }
+    }
+
+    // To protect from overposting attacks, enable the specific properties you want to bind to.
+    // For more information, see https://learn.microsoft.com/aspnet/core/blazor/forms/#mitigate-overposting-attacks.
+    private async Task UpdateBlockList()
+    {
+        using var context = DbFactory.CreateDbContext();
+        context.Attach(BlockList!).State = EntityState.Modified;
+
+        try
+        {
+            await context.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            if (!BlockListExists(BlockList!.UserID))
+            {
+                NavigationManager.NavigateTo("notfound");
+            }
+            else
+            {
+                throw;
+            }
+        }
+
+        NavigationManager.NavigateTo("/blocklists");
+    }
+
+    private bool BlockListExists(int userid)
+    {
+        using var context = DbFactory.CreateDbContext();
+        return context.BlockList.Any(e => e.UserID == userid);
+    }
+}

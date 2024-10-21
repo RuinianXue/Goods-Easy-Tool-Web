@@ -1,0 +1,64 @@
+﻿@page "/goodsbatches/create"
+@using Microsoft.EntityFrameworkCore
+@using GoodsWebApp.Models
+@inject IDbContextFactory<GoodsWebApp.Data.GoodsWebAppContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Create</PageTitle>
+
+<h1>Create</h1>
+
+<h2>GoodsBatch</h2>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <EditForm method="post" Model="GoodsBatch" OnValidSubmit="AddGoodsBatch" FormName="create" Enhance>
+            <DataAnnotationsValidator />
+            <ValidationSummary class="text-danger" />
+            <div class="mb-3">
+                <label for="goodsbatchname" class="form-label">GoodsBatchName:</label> 
+                <InputText id="goodsbatchname" @bind-Value="GoodsBatch.GoodsBatchName" class="form-control" /> 
+                <ValidationMessage For="() => GoodsBatch.GoodsBatchName" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="goodsbegintime" class="form-label">GoodsBeginTime:</label> 
+                <InputDate id="goodsbegintime" @bind-Value="GoodsBatch.GoodsBeginTime" class="form-control" /> 
+                <ValidationMessage For="() => GoodsBatch.GoodsBeginTime" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="goodsendtime" class="form-label">GoodsEndTime:</label> 
+                <InputDate id="goodsendtime" @bind-Value="GoodsBatch.GoodsEndTime" class="form-control" /> 
+                <ValidationMessage For="() => GoodsBatch.GoodsEndTime" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="deliverystatus" class="form-label">DeliveryStatus:</label> 
+                <InputNumber id="deliverystatus" @bind-Value="GoodsBatch.DeliveryStatus" class="form-control" /> 
+                <ValidationMessage For="() => GoodsBatch.DeliveryStatus" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="shareddiscount" class="form-label">SharedDiscount:</label> 
+                <InputNumber id="shareddiscount" @bind-Value="GoodsBatch.SharedDiscount" class="form-control" /> 
+                <ValidationMessage For="() => GoodsBatch.SharedDiscount" class="text-danger" /> 
+            </div>        
+            <button type="submit" class="btn btn-primary">Create</button>
+        </EditForm>
+    </div>
+</div>
+
+<div>
+    <a href="/goodsbatches">Back to List</a>
+</div>
+
+@code {
+    [SupplyParameterFromForm]
+    private GoodsBatch GoodsBatch { get; set; } = new();
+
+    // To protect from overposting attacks, see https://learn.microsoft.com/aspnet/core/blazor/forms/#mitigate-overposting-attacks.
+    private async Task AddGoodsBatch()
+    {
+        using var context = DbFactory.CreateDbContext();
+        context.GoodsBatch.Add(GoodsBatch);
+        await context.SaveChangesAsync();
+        NavigationManager.NavigateTo("/goodsbatches");
+    }
+}

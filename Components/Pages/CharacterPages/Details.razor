@@ -1,0 +1,46 @@
+﻿@page "/characters/details"
+@using Microsoft.EntityFrameworkCore
+@using GoodsWebApp.Models
+@inject IDbContextFactory<GoodsWebApp.Data.GoodsWebAppContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Details</PageTitle>
+
+<h1>Details</h1>
+
+<div>
+    <h2>Character</h2>
+    <hr />
+    @if (character is null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else {
+        <dl class="row">
+            <dt class="col-sm-2">HotPriority</dt>
+            <dd class="col-sm-10">@character.HotPriority</dd>
+        </dl>
+        <div>
+            <a href="@($"/characters/edit?characterid={character.CharacterID}")">Edit</a> |
+            <a href="@($"/characters")">Back to List</a>
+        </div>
+    }
+</div>
+
+@code {
+    private Character? character;
+
+    [SupplyParameterFromQuery]
+    private string CharacterID { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var context = DbFactory.CreateDbContext();
+        character = await context.Character.FirstOrDefaultAsync(m => m.CharacterID == CharacterID);
+
+        if (character is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+        }
+    }
+}

@@ -1,0 +1,59 @@
+﻿@page "/moneychecklists/create"
+@using Microsoft.EntityFrameworkCore
+@using GoodsWebApp.Models
+@inject IDbContextFactory<GoodsWebApp.Data.GoodsWebAppContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Create</PageTitle>
+
+<h1>Create</h1>
+
+<h2>MoneyCheckList</h2>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <EditForm method="post" Model="MoneyCheckList" OnValidSubmit="AddMoneyCheckList" FormName="create" Enhance>
+            <DataAnnotationsValidator />
+            <ValidationSummary class="text-danger" />
+            <div class="mb-3">
+                <label for="userid" class="form-label">UserID:</label> 
+                <InputNumber id="userid" @bind-Value="MoneyCheckList.UserID" class="form-control" /> 
+                <ValidationMessage For="() => MoneyCheckList.UserID" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="batchid" class="form-label">BatchID:</label> 
+                <InputNumber id="batchid" @bind-Value="MoneyCheckList.BatchID" class="form-control" /> 
+                <ValidationMessage For="() => MoneyCheckList.BatchID" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="paypicurl" class="form-label">PayPicURL:</label> 
+                <InputText id="paypicurl" @bind-Value="MoneyCheckList.PayPicURL" class="form-control" /> 
+                <ValidationMessage For="() => MoneyCheckList.PayPicURL" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="checkmoneystatus" class="form-label">CheckMoneyStatus:</label> 
+                <InputNumber id="checkmoneystatus" @bind-Value="MoneyCheckList.CheckMoneyStatus" class="form-control" /> 
+                <ValidationMessage For="() => MoneyCheckList.CheckMoneyStatus" class="text-danger" /> 
+            </div>        
+            <button type="submit" class="btn btn-primary">Create</button>
+        </EditForm>
+    </div>
+</div>
+
+<div>
+    <a href="/moneychecklists">Back to List</a>
+</div>
+
+@code {
+    [SupplyParameterFromForm]
+    private MoneyCheckList MoneyCheckList { get; set; } = new();
+
+    // To protect from overposting attacks, see https://learn.microsoft.com/aspnet/core/blazor/forms/#mitigate-overposting-attacks.
+    private async Task AddMoneyCheckList()
+    {
+        using var context = DbFactory.CreateDbContext();
+        context.MoneyCheckList.Add(MoneyCheckList);
+        await context.SaveChangesAsync();
+        NavigationManager.NavigateTo("/moneychecklists");
+    }
+}

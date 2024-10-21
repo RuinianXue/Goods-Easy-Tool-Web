@@ -1,0 +1,52 @@
+﻿@page "/moneychecklists/details"
+@using Microsoft.EntityFrameworkCore
+@using GoodsWebApp.Models
+@inject IDbContextFactory<GoodsWebApp.Data.GoodsWebAppContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Details</PageTitle>
+
+<h1>Details</h1>
+
+<div>
+    <h2>MoneyCheckList</h2>
+    <hr />
+    @if (moneychecklist is null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else {
+        <dl class="row">
+            <dt class="col-sm-2">UserID</dt>
+            <dd class="col-sm-10">@moneychecklist.UserID</dd>
+            <dt class="col-sm-2">BatchID</dt>
+            <dd class="col-sm-10">@moneychecklist.BatchID</dd>
+            <dt class="col-sm-2">PayPicURL</dt>
+            <dd class="col-sm-10">@moneychecklist.PayPicURL</dd>
+            <dt class="col-sm-2">CheckMoneyStatus</dt>
+            <dd class="col-sm-10">@moneychecklist.CheckMoneyStatus</dd>
+        </dl>
+        <div>
+            <a href="@($"/moneychecklists/edit?moneyuniqueid={moneychecklist.moneyUniqueID}")">Edit</a> |
+            <a href="@($"/moneychecklists")">Back to List</a>
+        </div>
+    }
+</div>
+
+@code {
+    private MoneyCheckList? moneychecklist;
+
+    [SupplyParameterFromQuery]
+    private int moneyUniqueID { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var context = DbFactory.CreateDbContext();
+        moneychecklist = await context.MoneyCheckList.FirstOrDefaultAsync(m => m.moneyUniqueID == moneyUniqueID);
+
+        if (moneychecklist is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+        }
+    }
+}

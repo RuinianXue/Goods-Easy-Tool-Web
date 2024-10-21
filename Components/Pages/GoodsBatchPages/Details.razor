@@ -1,0 +1,54 @@
+﻿@page "/goodsbatches/details"
+@using Microsoft.EntityFrameworkCore
+@using GoodsWebApp.Models
+@inject IDbContextFactory<GoodsWebApp.Data.GoodsWebAppContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Details</PageTitle>
+
+<h1>Details</h1>
+
+<div>
+    <h2>GoodsBatch</h2>
+    <hr />
+    @if (goodsbatch is null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else {
+        <dl class="row">
+            <dt class="col-sm-2">GoodsBatchName</dt>
+            <dd class="col-sm-10">@goodsbatch.GoodsBatchName</dd>
+            <dt class="col-sm-2">GoodsBeginTime</dt>
+            <dd class="col-sm-10">@goodsbatch.GoodsBeginTime</dd>
+            <dt class="col-sm-2">GoodsEndTime</dt>
+            <dd class="col-sm-10">@goodsbatch.GoodsEndTime</dd>
+            <dt class="col-sm-2">DeliveryStatus</dt>
+            <dd class="col-sm-10">@goodsbatch.DeliveryStatus</dd>
+            <dt class="col-sm-2">SharedDiscount</dt>
+            <dd class="col-sm-10">@goodsbatch.SharedDiscount</dd>
+        </dl>
+        <div>
+            <a href="@($"/goodsbatches/edit?goodsbatchid={goodsbatch.GoodsBatchID}")">Edit</a> |
+            <a href="@($"/goodsbatches")">Back to List</a>
+        </div>
+    }
+</div>
+
+@code {
+    private GoodsBatch? goodsbatch;
+
+    [SupplyParameterFromQuery]
+    private int GoodsBatchID { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var context = DbFactory.CreateDbContext();
+        goodsbatch = await context.GoodsBatch.FirstOrDefaultAsync(m => m.GoodsBatchID == GoodsBatchID);
+
+        if (goodsbatch is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+        }
+    }
+}

@@ -1,0 +1,109 @@
+﻿@page "/goodsbatches/edit"
+@using Microsoft.EntityFrameworkCore
+@using GoodsWebApp.Models
+@inject IDbContextFactory<GoodsWebApp.Data.GoodsWebAppContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Edit</PageTitle>
+
+<h1>Edit</h1>
+
+<h2>GoodsBatch</h2>
+<hr />
+@if (GoodsBatch is null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-4">
+            <EditForm method="post" Model="GoodsBatch" OnValidSubmit="UpdateGoodsBatch" FormName="edit" Enhance>
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+                <input type="hidden" name="GoodsBatch.GoodsBatchID" value="@GoodsBatch.GoodsBatchID" />
+                <div class="mb-3">
+                    <label for="goodsbatchname" class="form-label">GoodsBatchName:</label>
+                    <InputText id="goodsbatchname" @bind-Value="GoodsBatch.GoodsBatchName" class="form-control" />
+                    <ValidationMessage For="() => GoodsBatch.GoodsBatchName" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="goodsbegintime" class="form-label">GoodsBeginTime:</label>
+                    <InputDate id="goodsbegintime" @bind-Value="GoodsBatch.GoodsBeginTime" class="form-control" />
+                    <ValidationMessage For="() => GoodsBatch.GoodsBeginTime" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="goodsendtime" class="form-label">GoodsEndTime:</label>
+                    <InputDate id="goodsendtime" @bind-Value="GoodsBatch.GoodsEndTime" class="form-control" />
+                    <ValidationMessage For="() => GoodsBatch.GoodsEndTime" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="deliverystatus" class="form-label">DeliveryStatus:</label>
+                    <InputNumber id="deliverystatus" @bind-Value="GoodsBatch.DeliveryStatus" class="form-control" />
+                    <ValidationMessage For="() => GoodsBatch.DeliveryStatus" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="shareddiscount" class="form-label">SharedDiscount:</label>
+                    <InputNumber id="shareddiscount" @bind-Value="GoodsBatch.SharedDiscount" class="form-control" />
+                    <ValidationMessage For="() => GoodsBatch.SharedDiscount" class="text-danger" />
+                </div>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </EditForm>
+        </div>
+    </div>
+}
+
+<div>
+    <a href="/goodsbatches">Back to List</a>
+</div>
+
+@code {
+    [SupplyParameterFromQuery]
+    private int GoodsBatchID { get; set; }
+
+    [SupplyParameterFromForm]
+    private GoodsBatch? GoodsBatch { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var context = DbFactory.CreateDbContext();
+        GoodsBatch ??= await context.GoodsBatch.FirstOrDefaultAsync(m => m.GoodsBatchID == GoodsBatchID);
+
+        if (GoodsBatch is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+        }
+    }
+
+    // To protect from overposting attacks, enable the specific properties you want to bind to.
+    // For more information, see https://learn.microsoft.com/aspnet/core/blazor/forms/#mitigate-overposting-attacks.
+    private async Task UpdateGoodsBatch()
+    {
+        using var context = DbFactory.CreateDbContext();
+        context.Attach(GoodsBatch!).State = EntityState.Modified;
+
+        try
+        {
+            await context.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            if (!GoodsBatchExists(GoodsBatch!.GoodsBatchID))
+            {
+                NavigationManager.NavigateTo("notfound");
+            }
+            else
+            {
+                throw;
+            }
+        }
+
+        NavigationManager.NavigateTo("/goodsbatches");
+    }
+
+    private bool GoodsBatchExists(int goodsbatchid)
+    {
+        using var context = DbFactory.CreateDbContext();
+        return context.GoodsBatch.Any(e => e.GoodsBatchID == goodsbatchid);
+    }
+}
