@@ -264,13 +264,6 @@ D:\Github\GoodsWebApp\GoodsWebApp\bin\Debug\net8.0\runtimes\win\lib\net7.0\Syste
 D:\Github\GoodsWebApp\GoodsWebApp\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Windows.Extensions.dll
 D:\Github\GoodsWebApp\GoodsWebApp\obj\Debug\net8.0\GoodsWebApp.csproj.AssemblyReference.cache
 D:\Github\GoodsWebApp\GoodsWebApp\obj\Debug\net8.0\GoodsWeb.83D5A45A.Up2Date
-D:\Github\Goods-Easy-Tool-Web\obj\Debug\net8.0\GoodsWebApp.csproj.AssemblyReference.cache
-D:\Github\Goods-Easy-Tool-Web\obj\Debug\net8.0\GoodsWebApp.GeneratedMSBuildEditorConfig.editorconfig
-D:\Github\Goods-Easy-Tool-Web\obj\Debug\net8.0\GoodsWebApp.AssemblyInfoInputs.cache
-D:\Github\Goods-Easy-Tool-Web\obj\Debug\net8.0\GoodsWebApp.AssemblyInfo.cs
-D:\Github\Goods-Easy-Tool-Web\obj\Debug\net8.0\GoodsWebApp.csproj.CoreCompileInputs.cache
-D:\Github\Goods-Easy-Tool-Web\obj\Debug\net8.0\GoodsWebApp.MvcApplicationPartsAssemblyInfo.cache
-D:\Github\Goods-Easy-Tool-Web\obj\Debug\net8.0\GoodsWebApp.sourcelink.json
 D:\Github\Goods-Easy-Tool-Web\bin\Debug\net8.0\appsettings.Development.json
 D:\Github\Goods-Easy-Tool-Web\bin\Debug\net8.0\appsettings.json
 D:\Github\Goods-Easy-Tool-Web\bin\Debug\net8.0\GoodsWebApp.staticwebassets.runtime.json
@@ -281,6 +274,7 @@ D:\Github\Goods-Easy-Tool-Web\bin\Debug\net8.0\GoodsWebApp.dll
 D:\Github\Goods-Easy-Tool-Web\bin\Debug\net8.0\GoodsWebApp.pdb
 D:\Github\Goods-Easy-Tool-Web\bin\Debug\net8.0\Azure.Core.dll
 D:\Github\Goods-Easy-Tool-Web\bin\Debug\net8.0\Azure.Identity.dll
+D:\Github\Goods-Easy-Tool-Web\bin\Debug\net8.0\BlazorBootstrap.dll
 D:\Github\Goods-Easy-Tool-Web\bin\Debug\net8.0\Humanizer.dll
 D:\Github\Goods-Easy-Tool-Web\bin\Debug\net8.0\Microsoft.AspNetCore.Authorization.dll
 D:\Github\Goods-Easy-Tool-Web\bin\Debug\net8.0\Microsoft.AspNetCore.Components.dll
@@ -514,6 +508,13 @@ D:\Github\Goods-Easy-Tool-Web\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Dr
 D:\Github\Goods-Easy-Tool-Web\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Runtime.Caching.dll
 D:\Github\Goods-Easy-Tool-Web\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Security.Cryptography.ProtectedData.dll
 D:\Github\Goods-Easy-Tool-Web\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Windows.Extensions.dll
+D:\Github\Goods-Easy-Tool-Web\obj\Debug\net8.0\GoodsWebApp.csproj.AssemblyReference.cache
+D:\Github\Goods-Easy-Tool-Web\obj\Debug\net8.0\GoodsWebApp.GeneratedMSBuildEditorConfig.editorconfig
+D:\Github\Goods-Easy-Tool-Web\obj\Debug\net8.0\GoodsWebApp.AssemblyInfoInputs.cache
+D:\Github\Goods-Easy-Tool-Web\obj\Debug\net8.0\GoodsWebApp.AssemblyInfo.cs
+D:\Github\Goods-Easy-Tool-Web\obj\Debug\net8.0\GoodsWebApp.csproj.CoreCompileInputs.cache
+D:\Github\Goods-Easy-Tool-Web\obj\Debug\net8.0\GoodsWebApp.MvcApplicationPartsAssemblyInfo.cache
+D:\Github\Goods-Easy-Tool-Web\obj\Debug\net8.0\GoodsWebApp.sourcelink.json
 D:\Github\Goods-Easy-Tool-Web\obj\Debug\net8.0\staticwebassets.build.json
 D:\Github\Goods-Easy-Tool-Web\obj\Debug\net8.0\staticwebassets.development.json
 D:\Github\Goods-Easy-Tool-Web\obj\Debug\net8.0\staticwebassets\msbuild.GoodsWebApp.Microsoft.AspNetCore.StaticWebAssets.props

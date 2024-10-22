@@ -8,7 +8,7 @@ public class DeliveryCheckList
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    [Range(1, int.MaxValue, ErrorMessage = "deliveryUniqueID must start from 1.")]
+    [Range(0, int.MaxValue, ErrorMessage = "deliveryUniqueID must start from 0.")]
     public int deliveryUniqueID { get; set; }
 
 

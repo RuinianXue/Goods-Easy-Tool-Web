@@ -6,7 +6,7 @@ public class GoodsType
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    [Range(1, int.MaxValue, ErrorMessage = "goodsTypeID must start from 1.")]
+    [Range(0, int.MaxValue, ErrorMessage = "goodsTypeID must start from 1.")]
     public int GoodsTypeID { get; set; }
 
     [Required]

@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "w9qumrFJaq8=",
+  "dgSpecHash": "WoTFhfFsiKo=",
   "success": true,
   "projectFilePath": "D:\\Github\\Goods-Easy-Tool-Web\\GoodsWebApp.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Linda XUE\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\Linda XUE\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",
+    "C:\\Users\\Linda XUE\\.nuget\\packages\\blazor.bootstrap\\3.1.0\\blazor.bootstrap.3.1.0.nupkg.sha512",
     "C:\\Users\\Linda XUE\\.nuget\\packages\\humanizer\\2.14.1\\humanizer.2.14.1.nupkg.sha512",
     "C:\\Users\\Linda XUE\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\Linda XUE\\.nuget\\packages\\humanizer.core.af\\2.14.1\\humanizer.core.af.2.14.1.nupkg.sha512",

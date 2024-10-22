@@ -62,3 +62,120 @@
         NavigationManager.NavigateTo("/goodsbatches");
     }
 }
+@page "/create-goods-batch"
+@using Microsoft.EntityFrameworkCore
+@using GoodsWebApp.Models
+@using GoodsWebApp.Data
+@inject IDbContextFactory<GoodsWebApp.Data.GoodsWebAppContext> DbFactory
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
+@rendermode InteractiveServer
+
+<h1>新建GoodsBatch</h1>
+
+<div class="row">
+    <div class="col-md-6">
+        <EditForm Model="@newGoodsBatch" OnValidSubmit="CreateNewGoodsBatch" FormName="create" Enhance>
+            <DataAnnotationsValidator />
+            <ValidationSummary class="text-danger" />
+
+            <div class="mb-3">
+                <label for="goodsBatchName" class="form-label">批次名称：</label>
+                <InputText id="goodsBatchName" @bind-Value="newGoodsBatch.GoodsBatchName" class="form-control" />
+                <ValidationMessage For="() => newGoodsBatch.GoodsBatchName" class="text-danger" />
+            </div>
+
+            <div class="mb-3">
+                <label for="goodsBeginDate" class="form-label">开始日期：</label>
+                <InputDate id="goodsBeginDate" @bind-Value="beginDate" class="form-control" />
+                <ValidationMessage For="() => beginDate" class="text-danger" />
+            </div>
+
+            <div class="mb-3">
+                <label for="goodsBeginTime" class="form-label">开始时间：</label>
+                <InputText id="goodsBeginTime" @bind-Value="beginTime" type="time" class="form-control" />
+                <ValidationMessage For="() => beginTime" class="text-danger" />
+            </div>
+
+            <div class="mb-3">
+                <label for="goodsEndDate" class="form-label">结束日期：</label>
+                <InputDate id="goodsEndDate" @bind-Value="endDate" class="form-control" />
+                <ValidationMessage For="() => endDate" class="text-danger" />
+            </div>
+
+            <div class="mb-3">
+                <label for="goodsEndTime" class="form-label">结束时间：</label>
+                <InputText id="goodsEndTime" @bind-Value="endTime" type="time" class="form-control" />
+                <ValidationMessage For="() => endTime" class="text-danger" />
+            </div>
+
+            <div class="mb-3">
+                <label for="deliveryStatus" class="form-label">发货状态：</label>
+                <InputNumber id="deliveryStatus" @bind-Value="newGoodsBatch.DeliveryStatus" class="form-control" />
+                <ValidationMessage For="() => newGoodsBatch.DeliveryStatus" class="text-danger" />
+            </div>
+
+            <div class="mb-3">
+                <label for="sharedDiscount" class="form-label">折扣系数：</label>
+                <InputNumber id="sharedDiscount" @bind-Value="newGoodsBatch.SharedDiscount" class="form-control" />
+                <ValidationMessage For="() => newGoodsBatch.SharedDiscount" class="text-danger" />
+            </div>
+
+            <button type="submit" class="btn btn-primary">创建新GoodsBatch</button>
+        </EditForm>
+    </div>
+</div>
+
+@code {
+    [SupplyParameterFromForm]
+    private GoodsBatch newGoodsBatch { get; set; } = new();
+
+    private DateTime beginDate = DateTime.Today;
+    private string beginTime = "00:00";
+    private DateTime endDate = DateTime.Today;
+    private string endTime = "23:59";
+
+    protected override void OnInitialized()
+    {
+        InitializeNewGoodsBatch();
+    }
+
+    private void InitializeNewGoodsBatch()
+    {
+        newGoodsBatch = new GoodsBatch
+        {
+            GoodsBatchName = DateTime.Now.ToString("yyyyMMdd-"),
+            // 其他属性可以根据需要设置默认值
+        };
+        beginDate = DateTime.Today;
+        beginTime = "00:00";
+        endDate = DateTime.Today;
+        endTime = "23:59";
+    }
+
+    private async Task CreateNewGoodsBatch()
+    {
+        // 合并日期和时间
+        newGoodsBatch.GoodsBeginTime = CombineDateAndTime(beginDate, beginTime);
+        newGoodsBatch.GoodsEndTime = CombineDateAndTime(endDate, endTime);
+
+        using var context = await DbFactory.CreateDbContextAsync();
+        context.GoodsBatch.Add(newGoodsBatch);
+        await context.SaveChangesAsync();
+        
+        // 显示成功消息
+        await JSRuntime.InvokeVoidAsync("alert", "成功新建batch");
+        
+        // 返回到添加商品页面
+        NavigationManager.NavigateTo("/add-goods-auto");
+    }
+
+    private DateTime CombineDateAndTime(DateTime date, string time)
+    {
+        if (TimeSpan.TryParse(time, out TimeSpan timeSpan))
+        {
+            return date.Date + timeSpan;
+        }
+        return date;
+    }
+}

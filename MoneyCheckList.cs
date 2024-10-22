@@ -10,7 +10,7 @@ public class MoneyCheckList
     [Key]
     [Required]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    [Range(1, int.MaxValue, ErrorMessage = "deliveryUniqueID must start from 1.")]
+    [Range(0, int.MaxValue, ErrorMessage = "deliveryUniqueID must start from 0.")]
     public int moneyUniqueID { get; set; }
     [Required]
     public int UserID { get; set; } // 用户ID，外码

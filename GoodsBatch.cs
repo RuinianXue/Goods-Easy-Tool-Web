@@ -8,7 +8,7 @@ public class GoodsBatch
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    [Range(1, int.MaxValue, ErrorMessage = "goodsBatchID must start from 1.")]
+    [Range(0, int.MaxValue, ErrorMessage = "goodsBatchID must start from 0.")]
     public int GoodsBatchID { get; set; }
 
     [Required]
@@ -17,6 +17,23 @@ public class GoodsBatch
     public DateTime GoodsBeginTime { get; set; }
 
     public DateTime GoodsEndTime { get; set; }
+    /*
+    public string GoodsBeginTimeString { get; set; }
+
+    public DateTime GoodsBeginTime
+    {
+        get => DateTime.Parse(GoodsBeginTimeString);
+        set => GoodsBeginTimeString = value.ToString("yyyy-MM-ddTHH:mm:ss");
+    }
+
+    public string GoodsEndTimeString { get; set; }
+
+    public DateTime GoodsEndTime
+    {
+        get => DateTime.Parse(GoodsEndTimeString);
+        set => GoodsEndTimeString = value.ToString("yyyy-MM-ddTHH:mm:ss");
+    }
+    */
 
     [Required]
     [Range(0, 3, ErrorMessage = "Delivery Status must be between 0 and 3.")]
