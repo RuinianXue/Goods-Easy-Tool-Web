@@ -4,6 +4,7 @@ using GoodsWebApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GoodsWebApp.Migrations
 {
     [DbContext(typeof(GoodsWebAppContext))]
-    partial class GoodsWebAppContextModelSnapshot : ModelSnapshot
+    [Migration("20241023143954_RemoveBatchToType")]
+    partial class RemoveBatchToType
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -24,16 +27,19 @@ namespace GoodsWebApp.Migrations
 
             modelBuilder.Entity("GoodsWebApp.Models.BatchToType", b =>
                 {
-                    b.Property<int>("GoodsBatchID")
+                    b.Property<int>("BatchTypeRelationID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("GoodsBatchID"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BatchTypeRelationID"));
+
+                    b.Property<int>("GoodsBatchID")
+                        .HasColumnType("int");
 
                     b.Property<int>("GoodsTypeID")
                         .HasColumnType("int");
 
-                    b.HasKey("GoodsBatchID");
+                    b.HasKey("BatchTypeRelationID");
 
                     b.ToTable("BatchToType");
                 });

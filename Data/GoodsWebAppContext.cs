@@ -34,5 +34,7 @@ namespace GoodsWebApp.Data
 
             base.OnModelCreating(modelBuilder);
         }*/
+
     }
+
 }

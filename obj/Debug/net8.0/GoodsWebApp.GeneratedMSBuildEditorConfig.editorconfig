@@ -30,28 +30,16 @@ build_property._RazorSourceGeneratorDebug =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xBcHAucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Github/Goods-Easy-Tool-Web/Components/Pages/AddGoodsPage.razor]
-build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xBZGRHb29kc1BhZ2UucmF6b3I=
+[D:/Github/Goods-Easy-Tool-Web/Components/BatchSelector.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xCYXRjaFNlbGVjdG9yLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Github/Goods-Easy-Tool-Web/Components/Pages/BatchToTypePages/Create.razor]
-build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xCYXRjaFRvVHlwZVBhZ2VzXENyZWF0ZS5yYXpvcg==
+[D:/Github/Goods-Easy-Tool-Web/Components/Pages/AddGoodsStart.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xBZGRHb29kc1N0YXJ0LnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Github/Goods-Easy-Tool-Web/Components/Pages/BatchToTypePages/Delete.razor]
-build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xCYXRjaFRvVHlwZVBhZ2VzXERlbGV0ZS5yYXpvcg==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/Github/Goods-Easy-Tool-Web/Components/Pages/BatchToTypePages/Details.razor]
-build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xCYXRjaFRvVHlwZVBhZ2VzXERldGFpbHMucmF6b3I=
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/Github/Goods-Easy-Tool-Web/Components/Pages/BatchToTypePages/Edit.razor]
-build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xCYXRjaFRvVHlwZVBhZ2VzXEVkaXQucmF6b3I=
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/Github/Goods-Easy-Tool-Web/Components/Pages/BatchToTypePages/Index.razor]
-build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xCYXRjaFRvVHlwZVBhZ2VzXEluZGV4LnJhem9y
+[D:/Github/Goods-Easy-Tool-Web/Components/Pages/AddGoodsType.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xBZGRHb29kc1R5cGUucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Github/Goods-Easy-Tool-Web/Components/Pages/BlockListPages/Create.razor]
@@ -72,10 +60,6 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/Github/Goods-Easy-Tool-Web/Components/Pages/BlockListPages/Index.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xCbG9ja0xpc3RQYWdlc1xJbmRleC5yYXpvcg==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/Github/Goods-Easy-Tool-Web/Components/Pages/CardView.razor]
-build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xDYXJkVmlldy5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Github/Goods-Easy-Tool-Web/Components/Pages/CharacterPages/Create.razor]
@@ -296,6 +280,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/Github/Goods-Easy-Tool-Web/Components/Routes.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xSb3V0ZXMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Github/Goods-Easy-Tool-Web/Components/TypeSelector.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xUeXBlU2VsZWN0b3IucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Github/Goods-Easy-Tool-Web/Components/_Imports.razor]

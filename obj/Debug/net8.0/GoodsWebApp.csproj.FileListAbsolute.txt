@@ -266,6 +266,7 @@ D:\Github\GoodsWebApp\GoodsWebApp\obj\Debug\net8.0\GoodsWebApp.csproj.AssemblyRe
 D:\Github\GoodsWebApp\GoodsWebApp\obj\Debug\net8.0\GoodsWeb.83D5A45A.Up2Date
 D:\Github\Goods-Easy-Tool-Web\bin\Debug\net8.0\appsettings.Development.json
 D:\Github\Goods-Easy-Tool-Web\bin\Debug\net8.0\appsettings.json
+D:\Github\Goods-Easy-Tool-Web\bin\Debug\net8.0\oneclick-status-record.json
 D:\Github\Goods-Easy-Tool-Web\bin\Debug\net8.0\GoodsWebApp.staticwebassets.runtime.json
 D:\Github\Goods-Easy-Tool-Web\bin\Debug\net8.0\GoodsWebApp.exe
 D:\Github\Goods-Easy-Tool-Web\bin\Debug\net8.0\GoodsWebApp.deps.json

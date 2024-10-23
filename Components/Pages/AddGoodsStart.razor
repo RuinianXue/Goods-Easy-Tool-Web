@@ -1,0 +1,17 @@
+@page "/add-goods-auto/start"
+@using Microsoft.EntityFrameworkCore
+@using GoodsWebApp.Models
+@using GoodsWebApp.Data
+@inject IDbContextFactory<GoodsWebApp.Data.GoodsWebAppContext> DbFactory
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
+@rendermode InteractiveServer
+
+<h1>一键添加谷子系列</h1>
+<h2>Step1: 当前批次选择</h2>
+<BatchSelector />
+
+
+@code {
+
+}

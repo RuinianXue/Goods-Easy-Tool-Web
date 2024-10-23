@@ -1,0 +1,171 @@
+﻿<!-- Components/Shared/BatchSelector.razor -->
+@using Microsoft.EntityFrameworkCore
+@using GoodsWebApp.Models
+@using GoodsWebApp.Data
+@inject IDbContextFactory<GoodsWebApp.Data.GoodsWebAppContext> DbFactory
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
+@rendermode InteractiveServer
+@using Microsoft.AspNetCore.Components
+@using System.Text.Json
+@using System.IO
+
+<div class="card">
+    <div class="card-header">
+        已选择的类型
+    </div>
+    <div class="card-body">
+        @if (selectedTypes.Count == 0)
+        {
+            <p>没有选择任何类型。</p>
+        }
+        else
+        {
+            <ul class="list-group">
+                @foreach (var type in selectedTypes)
+                {
+                    <li class="list-group-item">
+                        <input class="form-check-input me-1" type="checkbox" value="@type.GoodsTypeID" id="checkbox-@type.GoodsTypeID" />
+                        <label class="form-check-label" for="checkbox-@type.GoodsTypeID">@type.GoodsTypeName</label> <!-- 修改为显示GoodsTypeName -->
+                    </li>
+                }
+            </ul>
+        }
+    </div>
+</div>
+<button class="btn btn-primary" @onclick="ToggleNewTypeForm">新建类型</button>
+<button class="btn btn-secondary" @onclick="OpenSelectTypeModal">选择现有类型</button>
+@if (isNewTypeFormVisible)
+{
+    <div class="mt-3">
+        <h5>新建类型</h5>
+        <EditForm Model="@newType" OnValidSubmit="AddNewType">
+            <DataAnnotationsValidator />
+            <ValidationSummary class="text-danger" />
+            <div class="mb-3">
+                <label for="goodsTypeName" class="form-label">类型名称:</label>
+                <InputText id="goodsTypeName" @bind-Value="newType.GoodsTypeName" class="form-control" />
+                <ValidationMessage For="() => newType.GoodsTypeName" class="text-danger" />
+            </div>
+            <div class="mb-3">
+                <label for="priceInTotal" class="form-label">总价:</label>
+                <InputNumber id="priceInTotal" @bind-Value="newType.PriceInTotal" class="form-control" />
+                <ValidationMessage For="() => newType.PriceInTotal" class="text-danger" />
+            </div>
+            <div class="mb-3">
+                <label for="limitAmount" class="form-label">数量:</label>
+                <InputNumber id="limitAmount" @bind-Value="newType.LimitAmount" class="form-control" />
+                <ValidationMessage For="() => newType.LimitAmount" class="text-danger" />
+            </div>
+            <div class="mb-3">
+                <label for="importType" class="form-label">导入类型:</label>
+                <select id="importType" @bind="importType" class="form-control">
+                    <option value="快速生成">图片快速生成</option>
+                    <option value="手动导入">手动导入</option>
+                </select>
+            </div>
+            @if (importType == "手动导入")
+            {
+                <button type="button" class="btn btn-secondary" @onclick="AddGoods">新增Goods</button>
+            }
+            <button type="submit" class="btn btn-primary" onclick="AddNewType">保存</button>
+            <button type="button" class="btn btn-secondary" @onclick="ToggleNewTypeForm">取消</button>
+        </EditForm>
+    </div>
+}
+
+<div class="d-flex justify-content-between mt-2">
+    <button type="button" class="btn btn-primary" @onclick="LastStep">上一步</button> 
+    <button type="button" class="btn btn-success" @onclick="NextStep">下一步</button>
+</div>
+
+@code {
+    private async Task NextStep()
+    {
+
+    }
+    private async Task LastStep()
+    {
+        NavigationManager.NavigateTo("/add-goods-auto/start");
+    }
+    private int? selectedBatchId;
+    private List<GoodsType> selectedTypes = new List<GoodsType>();
+    private GoodsType newType = new GoodsType { LimitAmount = 10 }; // 新建类型的模型，数量默认值为10
+    private bool isNewTypeFormVisible = false; // 控制新建类型表单的显示与隐藏
+    private string importType = "快速生成"; // 新增字段以存储导入类型
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadSelectedBatch();
+        await LoadSelectedTypes();
+    }
+
+    private async Task LoadSelectedBatch()
+    {
+        var filePath = "./oneclick-status-record.json";
+        if (File.Exists(filePath))
+        {
+            var json = await File.ReadAllTextAsync(filePath);
+            var dataObject = JsonSerializer.Deserialize<Dictionary<string, JsonElement>>(json);
+            if (dataObject != null && dataObject.ContainsKey("SelectedBatch"))
+            {
+                selectedBatchId = dataObject["SelectedBatch"].GetInt32();
+            }
+        }
+    }
+    private async Task LoadSelectedTypes()
+    {
+        using var context = await DbFactory.CreateDbContextAsync();
+        if (selectedBatchId.HasValue)
+        {
+            selectedTypes = await context.BatchToType
+                .Where(b => b.GoodsBatchID == selectedBatchId.Value)
+                .Select(b => new GoodsType { GoodsTypeID = b.GoodsTypeID }) // 假设GoodsType有GoodsTypeID属性
+                .ToListAsync();
+        }
+    }
+
+    private void ToggleNewTypeForm()
+    {
+        isNewTypeFormVisible = !isNewTypeFormVisible; // 切换表单的显示状态
+    }
+
+    private async Task AddNewType()
+    {
+        using var context = await DbFactory.CreateDbContextAsync();
+        // 将新类型添加到数据库
+        context.GoodsType.Add(newType); // 假设GoodsTypes是您的DbSet
+        await context.SaveChangesAsync(); // 保存更改到数据库
+
+        // 将新类型添加到列表中
+        selectedTypes.Add(new GoodsType 
+        { 
+            GoodsTypeID = newType.GoodsTypeID,
+            GoodsTypeName = newType.GoodsTypeName,
+            PriceInTotal = newType.PriceInTotal,
+            LimitAmount = newType.LimitAmount
+        }); // 复制完整的newType对象
+
+        // 新增一条记录到BatchToType表
+        //Console.WriteLine(selectedBatchId.Value);
+        context.BatchToType.Add(new BatchToType
+            {
+                GoodsBatchID = selectedBatchId.Value, // 当前BatchID
+                GoodsTypeID = newType.GoodsTypeID // 当前TypeID
+            });
+        await context.SaveChangesAsync(); // 保存更改到数据库
+
+        ToggleNewTypeForm(); // 确保在这里调用以收起表单
+        newType = new GoodsType { LimitAmount = 10 };
+    }
+
+    private void OpenSelectTypeModal()
+    {
+        // 逻辑以打开选择现有类型的模态框
+    }
+
+    private void AddGoods()
+    {
+        // 逻辑以新增Goods
+    }
+}

@@ -12,7 +12,7 @@ public class Goods
     public int GoodsID { get; set; }
 
     [Required]
-    public int GoodsTypeID { get; set; } // 名字
+    public int GoodsTypeID { get; set; } // 
 
     [Required]
     public int GoodsCharacter { get; set; } // 角色

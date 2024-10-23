@@ -13,6 +13,7 @@ public class GoodsType
     public string GoodsTypeName { get; set; }
 
     public int? PriceInTotal { get; set; } // 总价，原价
-
+    [Required]
+    [DefaultValue(10)]
     public int? LimitAmount { get; set; } // 开的数量（可修改）
 }

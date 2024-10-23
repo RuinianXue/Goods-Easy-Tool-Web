@@ -1,0 +1,16 @@
+﻿@page "/add-goods-auto/type-choose"
+@using Microsoft.EntityFrameworkCore
+@using GoodsWebApp.Models
+@using GoodsWebApp.Data
+@inject IDbContextFactory<GoodsWebApp.Data.GoodsWebAppContext> DbFactory
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
+@rendermode InteractiveServer
+
+<h1>一键添加谷子系列</h1>
+<h2>Step2: 谷子类型选择</h2>
+<TypeSelector />
+
+@code {
+
+}

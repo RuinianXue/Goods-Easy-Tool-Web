@@ -1,7 +1,8 @@
 ﻿@page "/"
 @rendermode InteractiveServer
+@using Microsoft.EntityFrameworkCore
 @inject NavigationManager NavigationManager
-
+@inject IDbContextFactory<GoodsWebApp.Data.GoodsWebAppContext> DbFactory
 <PageTitle>Goods Auto Dashboard</PageTitle>
 
 
@@ -18,9 +19,10 @@
 </div>
 
 @code {
+
     private void NavigateToAddGoodsPage()
     {
-        NavigationManager.NavigateTo("/add-goods-auto");
+        NavigationManager.NavigateTo("/add-goods-auto/start");
     }
 
     private void NavigateToSomeOtherPage()
